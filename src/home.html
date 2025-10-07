@@ -6,7 +6,7 @@
     <title>Document</title>
     <link rel="stylesheet" href="output.css">
 </head>
-<body>
+<body class="flex flex-col bg-white">
     <header class="flex items-center justify-center relative h-20 mb-1">
         <!-- localização atual -->
         <h1 class="">Minha localização</h1>
@@ -15,66 +15,91 @@
         </button>
     </header>
 
-    <div id="sugeridos" class="flex flex-col">
-        <h2 class="p-2 pb-4">Sugeridos</h2>
-        <div class="flex overflow-x-auto space-x-4 px-6">
-            <a href="./restaurant.html" class="flex flex-col shrink-0 bg-[#EEEEEE] justify-center items-center p-4 rounded-xl">
-                <img src="./assets/icons/logo_sushifan.svg" alt="restaurante">
-                <h2 class="text-sm">Sushi Fan</h2>
-            </a>
-            <a href="./restaurant.html" class="flex flex-col shrink-0 bg-[#EEEEEE] justify-center items-center p-4 rounded-xl">
-                <img src="./assets/icons/logo_sushifan.svg" alt="restaurante">
-                <h2 class="text-sm">Sushi Fan</h2>
-            </a>
-            <a href="./restaurant.html" class="flex flex-col shrink-0 bg-[#EEEEEE] justify-center items-center p-4 rounded-xl">
-                <img src="./assets/icons/logo_sushifan.svg" alt="restaurante">
-                <h2 class="text-sm">Sushi Fan</h2>
-            </a>
-            <a href="./restaurant.html" class="flex flex-col shrink-0 bg-[#EEEEEE] justify-center items-center p-4 rounded-xl">
-                <img src="./assets/icons/logo_sushifan.svg" alt="restaurante">
-                <h2 class="text-sm">Sushi Fan</h2>
-            </a>
-            <a href="./restaurant.html" class="flex flex-col shrink-0 bg-[#EEEEEE] justify-center items-center p-4 rounded-xl">
-                <img src="./assets/icons/logo_sushifan.svg" alt="restaurante">
-                <h2 class="text-sm">Sushi Fan</h2>
-            </a>
+    <main class="pb-20">
+        <div id="sugeridos" class="flex flex-col mb-15">
+            <h2 class="p-2 pb-4 pl-6">Sugeridos</h2>
+            <div class="flex overflow-x-auto hide-scrollbar space-x-4 px-6">
+                <a href="./restaurant.html" class="flex flex-col shrink-0 bg-[#EEEEEE] justify-center items-center p-4 rounded-xl">
+                    <img src="./assets/icons/logo_sushifan.svg" alt="restaurante">
+                    <h2 class="text-sm">Sushi Fan</h2>
+                </a>
+                <a href="./restaurant.html" class="flex flex-col shrink-0 bg-[#EEEEEE] justify-center items-center p-4 rounded-xl">
+                    <img src="./assets/icons/logo_sushifan.svg" alt="restaurante">
+                    <h2 class="text-sm">Sushi Fan</h2>
+                </a>
+                <a href="./restaurant.html" class="flex flex-col shrink-0 bg-[#EEEEEE] justify-center items-center p-4 rounded-xl">
+                    <img src="./assets/icons/logo_sushifan.svg" alt="restaurante">
+                    <h2 class="text-sm">Sushi Fan</h2>
+                </a>
+                <a href="./restaurant.html" class="flex flex-col shrink-0 bg-[#EEEEEE] justify-center items-center p-4 rounded-xl">
+                    <img src="./assets/icons/logo_sushifan.svg" alt="restaurante">
+                    <h2 class="text-sm">Sushi Fan</h2>
+                </a>
+                <a href="./restaurant.html" class="flex flex-col shrink-0 bg-[#EEEEEE] justify-center items-center p-4 rounded-xl">
+                    <img src="./assets/icons/logo_sushifan.svg" alt="restaurante">
+                    <h2 class="text-sm">Sushi Fan</h2>
+                </a>
+            </div>
         </div>
-    </div>
-    <div id="carrosel-imagens-1">
-
-    </div>
-
-    <div id="promocoes" class="flex flex-col">
-        <h2 class="p-2 pb-4">Sugeridos</h2>
-        <div class="flex overflow-x-auto space-x-4 px-6">
-            <a href="./restaurant.html" class="flex flex-col shrink-0 bg-[#EEEEEE] justify-center items-center p-4 rounded-xl">
-                <img src="./assets/icons/logo_sushifan.svg" alt="restaurante">
-                <h2 class="text-sm">Sushi Fan</h2>
-            </a>
-            <a href="./restaurant.html" class="flex flex-col shrink-0 bg-[#EEEEEE] justify-center items-center p-4 rounded-xl">
-                <img src="./assets/icons/logo_sushifan.svg" alt="restaurante">
-                <h2 class="text-sm">Sushi Fan</h2>
-            </a>
-            <a href="./restaurant.html" class="flex flex-col shrink-0 bg-[#EEEEEE] justify-center items-center p-4 rounded-xl">
-                <img src="./assets/icons/logo_sushifan.svg" alt="restaurante">
-                <h2 class="text-sm">Sushi Fan</h2>
-            </a>
-            <a href="./restaurant.html" class="flex flex-col shrink-0 bg-[#EEEEEE] justify-center items-center p-4 rounded-xl">
-                <img src="./assets/icons/logo_sushifan.svg" alt="restaurante">
-                <h2 class="text-sm">Sushi Fan</h2>
-            </a>
-            <a href="./restaurant.html" class="flex flex-col shrink-0 bg-[#EEEEEE] justify-center items-center p-4 rounded-xl">
-                <img src="./assets/icons/logo_sushifan.svg" alt="restaurante">
-                <h2 class="text-sm">Sushi Fan</h2>
-            </a>
+        <div class="carrosel mb-12">
+            <img src="./assets/images/imagem1.png" alt="imagem hamburguer" class="object-cover h-full w-full transition-opacity duration-700 ease-in-out">
         </div>
-    </div>
+        <div id="promocoes" class="flex flex-col mb-15">
+            <h2 class="p-2 pb-4 pl-6">Promoções da Semana</h2>
+            <div class="flex overflow-x-auto hide-scrollbar space-x-4 px-6">
+                <a href="./restaurant.html" class="flex flex-col shrink-0 bg-[#EEEEEE] justify-center items-center p-4 rounded-xl">
+                    <img src="./assets/icons/logo_sushifan.svg" alt="restaurante">
+                    <h2 class="text-sm">Sushi Fan</h2>
+                </a>
+                <a href="./restaurant.html" class="flex flex-col shrink-0 bg-[#EEEEEE] justify-center items-center p-4 rounded-xl">
+                    <img src="./assets/icons/logo_sushifan.svg" alt="restaurante">
+                    <h2 class="text-sm">Sushi Fan</h2>
+                </a>
+                <a href="./restaurant.html" class="flex flex-col shrink-0 bg-[#EEEEEE] justify-center items-center p-4 rounded-xl">
+                    <img src="./assets/icons/logo_sushifan.svg" alt="restaurante">
+                    <h2 class="text-sm">Sushi Fan</h2>
+                </a>
+                <a href="./restaurant.html" class="flex flex-col shrink-0 bg-[#EEEEEE] justify-center items-center p-4 rounded-xl">
+                    <img src="./assets/icons/logo_sushifan.svg" alt="restaurante">
+                    <h2 class="text-sm">Sushi Fan</h2>
+                </a>
+                <a href="./restaurant.html" class="flex flex-col shrink-0 bg-[#EEEEEE] justify-center items-center p-4 rounded-xl">
+                    <img src="./assets/icons/logo_sushifan.svg" alt="restaurante">
+                    <h2 class="text-sm">Sushi Fan</h2>
+                </a>
+            </div>
+        </div>
+        <div class="carrosel mb-12">
+            <img src="./assets/images/imagem1.png" alt="imagem hamburguer" class="object-cover h-full w-full transition-opacity duration-700 ease-in-out">
+        </div>
+        <div id="outros" class="flex flex-col mb-5">
+            <h2 class="p-2 pb-4 pl-6">Outros</h2>
+            <div class="flex overflow-x-auto hide-scrollbar space-x-4 px-6">
+                <a href="./restaurant.html" class="flex flex-col shrink-0 bg-[#EEEEEE] justify-center items-center p-4 rounded-xl">
+                    <img src="./assets/icons/logo_sushifan.svg" alt="restaurante">
+                    <h2 class="text-sm">Sushi Fan</h2>
+                </a>
+                <a href="./restaurant.html" class="flex flex-col shrink-0 bg-[#EEEEEE] justify-center items-center p-4 rounded-xl">
+                    <img src="./assets/icons/logo_sushifan.svg" alt="restaurante">
+                    <h2 class="text-sm">Sushi Fan</h2>
+                </a>
+                <a href="./restaurant.html" class="flex flex-col shrink-0 bg-[#EEEEEE] justify-center items-center p-4 rounded-xl">
+                    <img src="./assets/icons/logo_sushifan.svg" alt="restaurante">
+                    <h2 class="text-sm">Sushi Fan</h2>
+                </a>
+                <a href="./restaurant.html" class="flex flex-col shrink-0 bg-[#EEEEEE] justify-center items-center p-4 rounded-xl">
+                    <img src="./assets/icons/logo_sushifan.svg" alt="restaurante">
+                    <h2 class="text-sm">Sushi Fan</h2>
+                </a>
+                <a href="./restaurant.html" class="flex flex-col shrink-0 bg-[#EEEEEE] justify-center items-center p-4 rounded-xl">
+                    <img src="./assets/icons/logo_sushifan.svg" alt="restaurante">
+                    <h2 class="text-sm">Sushi Fan</h2>
+                </a>
+            </div>
+        </div>
+    </main>
 
-    <div id="carrosel-imagens-2">
-
-    </div>
-
-    <footer class="fixed bottom-0 left-0 right-0">
+    <footer class="fixed bottom-0 left-0 right-0 bg-white h-20">
         <nav class="flex flex-row justify-evenly h-20">
             <a href="#" class="flex flex-col justify-center items-center">
                 <img src="./assets/icons/home.svg" alt="">
@@ -94,5 +119,33 @@
             </a>
         </nav>
     </footer>
+
+    <style>
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none; /* Chrome, Safari e Edge */
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none; /* IE e Edge */
+            scrollbar-width: none; /* Firefox */
+        }
+    </style>
+
+    <script>
+        const imagens_src = ["./assets/images/imagem1.png", "./assets/images/imagem2.png"]
+        document.querySelectorAll('.carrosel').forEach(carrosel => {
+            const imagem = carrosel.querySelector('img')
+            let i = 0
+
+            setInterval(() => {
+                i = (i+1) % imagens_src.length
+
+                imagem.classList.add('opacity-0')
+                setTimeout(() => {
+                    imagem.src = imagens_src[i]
+                    imagem.classList.remove('opacity-0')
+                }, 700)
+            }, 3000)
+        })
+    </script>
 </body>
 </html>
