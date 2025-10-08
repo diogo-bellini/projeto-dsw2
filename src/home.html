@@ -9,7 +9,7 @@
 <body class="flex flex-col bg-white">
     <header class="flex items-center justify-center relative h-20 mb-1">
         <!-- localização atual -->
-        <h1 class="">Minha localização</h1>
+        <h1 class="" id="localizacao">Minha localização</h1>
         <button type="button" id="notificacao" class="absolute right-0 cursor-pointer p-7">
             <img src="./assets/icons/notification.svg" alt="notificacao" class="">
         </button>
@@ -146,6 +146,72 @@
                 }, 700)
             }, 3000)
         })
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            const loc = document.getElementById("localizacao");
+            
+            console.log("Página carregada. Iniciando busca por localização...");
+
+            function getLocation() {
+                if (navigator.geolocation) {
+                    loc.innerHTML = "Obtendo localização...";
+                    navigator.geolocation.getCurrentPosition(success, mostrarErro);
+                } else { 
+                    loc.innerHTML = "Geolocalização não é suportada.";
+                    console.error("Geolocalização não é suportada por este navegador.");
+                }
+            }
+
+            async function success(position) {
+                console.log("Coordenadas obtidas com sucesso:", position.coords);
+                try {
+                    const url = `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${position.coords.latitude}&lon=${position.coords.longitude}`;
+                    console.log("Chamando API do Nominatim:", url);
+                    
+                    const response = await fetch(url);
+                    const dados = await response.json();
+                    console.log("Dados recebidos da API:", dados);
+
+                    if (dados && dados.address) {
+                        const cidade = dados.address.city || dados.address.town || dados.address.village;
+                        const estado = dados.address.state;
+                        
+                        loc.innerHTML = `${cidade}, ${estado}`;
+                        console.log(`Localização definida para: ${cidade}, ${estado}`);
+                    } else {
+                        loc.innerHTML = 'Endereço não encontrado.';
+                        console.warn("API não retornou um endereço válido.");
+                    }
+                } catch (error) {
+                    console.error("Ocorreu um erro ao chamar a API ou processar os dados:", error);
+                    loc.innerHTML = "Não foi possível obter o endereço."
+                }
+            }
+
+            function mostrarErro(error) {
+                console.error("Erro ao obter geolocalização:", error);
+                let mensagem;
+                switch (error.code) {
+                    case error.PERMISSION_DENIED:
+                        mensagem = "Permissão de localização negada.";
+                        break;
+                    case error.POSITION_UNAVAILABLE:
+                        mensagem = "Localização indisponível.";
+                        break;
+                    case error.TIMEOUT:
+                        mensagem = "Pedido de localização expirou.";
+                        break;
+                    default:
+                        mensagem = "Erro ao obter localização.";
+                        break;
+                }
+                loc.innerHTML = mensagem;
+            }
+            getLocation();
+        });
     </script>
 </body>
 </html>
