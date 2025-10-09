@@ -1,12 +1,43 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="output.css">
-</head>
-<body>
-    
-</body>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+    <link rel="stylesheet" href="output.css" />
+  </head>
+  <body class="bg-[#4c0000]">
+    <main
+      class="flex flex-col gap-8 mt-[80px] ml-[15%] mr-[15%] md:ml-[25%] md:mr-[25%] lg:ml-[35%] lg:mr-[35%] justify-center items-center"
+    >
+      <img
+        src="./assets/icons/upeek_logoGrande.svg"
+        alt="logo principal"
+        class="ml-20 mr-20"
+      />
+      <form class="flex flex-col gap-6 justify-center items-center w-full">
+        <input
+          type="email"
+          placeholder="Email"
+          class="w-full bg-white p-3 border border-gray-800 rounded-lg"
+        />
+        <input
+          type="password"
+          placeholder="Senha"
+          class="w-full bg-white p-3 border border-gray-800 rounded-lg"
+        />
+
+        <button
+          type="submit"
+          class="bg-[#C9A227] rounded-4xl w-fit py-[10px] px-6 hover:bg-[#B8931C] hover:border hover:border-b-neutral-50 hover:border-solid text-white cursor-pointer mx-auto"
+        >
+          Entrar
+        </button>
+      </form>
+      <div class="flex flex-col gap-1 justify-center items-center">
+        <a href="" class="text-white">Esqueci minha senha.</a>
+        <a href="" class="text-white">Não tem conta? Registre-se aqui.</a>
+      </div>
+    </main>
+  </body>
 </html>
