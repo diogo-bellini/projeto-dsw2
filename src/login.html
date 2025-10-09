@@ -15,15 +15,20 @@
         alt="logo principal"
         class="ml-20 mr-20"
       />
-      <form class="flex flex-col gap-6 justify-center items-center w-full">
+      <form
+        id="loginForm"
+        class="flex flex-col gap-6 justify-center items-center w-full"
+      >
         <input
           type="email"
           placeholder="Email"
+          id="emailLogin"
           class="w-full bg-white p-3 border border-gray-800 rounded-lg"
         />
         <input
           type="password"
           placeholder="Senha"
+          id="senhaLogin"
           class="w-full bg-white p-3 border border-gray-800 rounded-lg"
         />
 
@@ -34,10 +39,51 @@
           Entrar
         </button>
       </form>
+
       <div class="flex flex-col gap-1 justify-center items-center">
-        <a href="" class="text-white">Esqueci minha senha.</a>
-        <a href="" class="text-white">Não tem conta? Registre-se aqui.</a>
+        <a href="" class="text-white hover:underline">Esqueci minha senha.</a>
+        <a href="register.html" class="text-white hover:underline"
+          >Não tem conta? Registre-se aqui.</a
+        >
       </div>
     </main>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const loginForm = document.getElementById("loginForm");
+
+        loginForm.addEventListener("submit", (event) => {
+          event.preventDefault();
+
+          const email = document.getElementById("emailLogin").value.trim();
+          const senha = document.getElementById("senhaLogin").value;
+
+          if (!email || !senha) {
+            alert("Por favor, preencha o email e a senha.");
+            return;
+          }
+
+          const usuariosStr = localStorage.getItem("usuarios");
+          const usuarios = usuariosStr ? JSON.parse(usuariosStr) : [];
+
+          const usuarioLogado = usuarios.find(
+            (user) => user.email === email && user.senha === senha
+          );
+
+          if (usuarioLogado) {
+            sessionStorage.setItem("usuarioLogado", usuarioLogado.email);
+
+            alert(
+              `Bem-vindo, ${
+                usuarioLogado.nomeCompleto.split(" ")[0]
+              }! Login efetuado.`
+            );
+
+            window.location.href = "home.html";
+          } else {
+            alert("E-mail ou senha inválidos. Verifique suas credenciais.");
+          }
+        });
+      });
+    </script>
   </body>
 </html>
