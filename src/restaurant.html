@@ -8,7 +8,7 @@
       rel="stylesheet"
       href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
     />
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="output.css" />
     <script>
       tailwind.config = {
         theme: {
@@ -179,11 +179,11 @@
 
     <!-- Main Content -->
     <main
-      class="flex flex-col items-center justify-center px-6 md:px-8 lg:px-12"
+      class="flex flex-col items-center justify-center px-6 pb-24 md:px-8 md:pb-0 lg:px-12"
     >
       <!-- Background Image -->
       <div
-        class="absolute inset-x-0 top-0 mx-auto h-36 w-full md:top-30 md:h-64 md:max-w-screen-2xl"
+        class="absolute inset-x-0 top-0 mx-auto h-36 w-full md:top-28 md:h-64 md:w-[1200px] md:max-w-screen-2xl"
       >
         <img
           src="./assets/images/imagem3.webp"
@@ -617,7 +617,7 @@
 
     <!-- Footer Navigation Mobile -->
     <footer
-      class="fixed bottom-0 left-0 right-0 h-20 border-t border-black bg-white md:hidden"
+      class="fixed bottom-0 left-0 right-0 h-20 border-t border-black bg-white md:hidden z-20"
     >
       <nav class="flex h-20 flex-row items-center justify-evenly">
         <a href="#" class="flex flex-col items-center justify-center gap-1">
