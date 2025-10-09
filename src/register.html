@@ -1,12 +1,75 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="output.css">
-</head>
-<body>
-    
-</body>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Register</title>
+    <link rel="stylesheet" href="output.css" />
+  </head>
+  <body class="bg-[#4c0000]">
+    <main
+      class="flex flex-col gap-8 mt-[80px] ml-[15%] mr-[15%] md:ml-[25%] md:mr-[25%] lg:ml-[35%] lg:mr-[35%] justify-center items-center"
+    >
+      <img
+        src="./assets/icons/upeek_logoGrande.svg"
+        alt="logo principal"
+        class="ml-20 mr-20"
+      />
+      <form class="flex flex-col gap-6 justify-center items-center w-full">
+        <input
+          type="text"
+          placeholder="Nome completo"
+          class="w-full bg-white p-3 border border-gray-800 rounded-lg"
+        />
+        <div class="flex flex-col gap-6 xl:flex-row w-full">
+          <input
+            type="text"
+            placeholder="CPF"
+            class="w-full bg-white p-3 border border-gray-800 rounded-lg"
+          />
+          <input
+            type="date"
+            placeholder="Data de Nascimento"
+            class="w-full bg-white p-3 border border-gray-800 rounded-lg"
+          />
+        </div>
+        <input
+          type="email"
+          placeholder="Email"
+          class="w-full bg-white p-3 border border-gray-800 rounded-lg"
+        />
+        <input
+          type="password"
+          placeholder="Senha"
+          class="w-full bg-white p-3 border border-gray-800 rounded-lg"
+        />
+        <input
+          type="password"
+          placeholder="Confirmar senha"
+          class="w-full bg-white p-3 border border-gray-800 rounded-lg"
+        />
+
+        <div class="checkbox-wrapper relative flex items-center w-full">
+          <input
+            type="checkbox"
+            id="custom-checkbox"
+            class="peer absolute w-6 h-6 opacity-0 cursor-pointer"
+          />
+
+          <label
+            for="custom-checkbox"
+            class="text-white flex items-center cursor-pointer select-none before:block before:w-6 before:h-6 before:border before:border-[#e6e6f0] before:rounded-lg before:mr-2 before:transition-all before:duration-150 peer-checked:before:bg-[#C9A227] peer-checked:before:border-[#B8931C] peer-checked:before:bg-[url('data:image/svg+xml,%3Csvg%20width=%2724%27%20height=%2724%27%20viewBox=%270%200%2024%2024%27%20fill=%27none%27%20xmlns=%27http://www.w3.org/2000/svg%27%3E%3Cpath%20d=%27M9%2016.17L4.83%2012L3.41%2013.41L9%2019L21%207L19.59%205.59L9%2016.17Z%27%20fill=%27white%27/%3E%3C/svg%3E')] peer-checked:before:bg-center peer-checked:before:bg-no-repeat peer-checked:before:bg-contain"
+          >
+            Li e concordo com os termos de uso do sistema.
+          </label>
+        </div>
+        <button
+          type="submit"
+          class="bg-[#C9A227] rounded-4xl w-fit py-[10px] px-6 hover:bg-[#B8931C] hover:border hover:border-b-neutral-50 hover:border-solid text-white cursor-pointer mx-auto"
+        >
+          FINALIZAR REGISTRO
+        </button>
+      </form>
+    </main>
+  </body>
 </html>
