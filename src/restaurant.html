@@ -1,12 +1,646 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="output.css">
-</head>
-<body>
-    
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Restaurant Card</title>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              "amarelo-escuro": "#C9A227",
+              "cinza-escuro": "#EEEEEE",
+            },
+          },
+        },
+      };
+    </script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <style>
+      #map {
+        width: 365px;
+        height: 138px;
+      }
+
+      /* Remove estilo padrão do input date e permite placeholder customizado */
+      input[type="date"]::-webkit-calendar-picker-indicator {
+        opacity: 0;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        cursor: pointer;
+      }
+
+      input[type="date"]::-webkit-datetime-edit {
+        color: transparent;
+      }
+
+      input[type="date"]:focus::-webkit-datetime-edit {
+        color: black;
+      }
+
+      input[type="date"]:valid::-webkit-datetime-edit {
+        color: black;
+      }
+
+      /* Placeholder customizado para date */
+      input[type="date"]::before {
+        content: attr(placeholder);
+        color: #6b7280;
+        position: absolute;
+      }
+
+      input[type="date"]:focus::before,
+      input[type="date"]:valid::before {
+        content: none;
+      }
+    </style>
+  </head>
+  <body>
+    <header
+      class="items-center justify-center hidden md:flex md:mb-[40px] relative h-20 mb-1 md:bg-[#4C0000] md:justify-between md:px-6 md:gap-x-4"
+    >
+      <img
+        src="./assets/icons/upeek_logo.svg"
+        alt="logo principal"
+        class="hidden md:block"
+      />
+
+      <div class="hidden md:block grow max-w-xl">
+        <form action="" class="relative">
+          <div
+            class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"
+          >
+            <img
+              src="./assets/icons/lupa.svg"
+              alt="lupa de pesquisa"
+              class=""
+            />
+          </div>
+          <input
+            type="text"
+            name=""
+            id=""
+            placeholder="Busque por um restaurante"
+            class="w-full bg-[#EEEEEE] rounded-lg py-2 pl-10 pr-4 border-none"
+          />
+        </form>
+      </div>
+
+      <div class="flex justify-between space-x-10 lg:space-x-30">
+        <h1 class="md:text-white" id="localizacao">Minha localização</h1>
+        <div class="hidden md:flex justify-between space-x-4">
+          <a
+            href="#"
+            class="hidden md:flex flex-col justify-center items-center"
+          >
+            <svg
+              class="text-white"
+              width="18"
+              height="18"
+              viewBox="0 0 18 18"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M9 9C10.1935 9 11.3381 8.52589 12.182 7.68198C13.0259 6.83807 13.5 5.69347 13.5 4.5C13.5 3.30653 13.0259 2.16193 12.182 1.31802C11.3381 0.474106 10.1935 0 9 0C7.80653 0 6.66193 0.474106 5.81802 1.31802C4.97411 2.16193 4.5 3.30653 4.5 4.5C4.5 5.69347 4.97411 6.83807 5.81802 7.68198C6.66193 8.52589 7.80653 9 9 9ZM12 4.5C12 5.29565 11.6839 6.05871 11.1213 6.62132C10.5587 7.18393 9.79565 7.5 9 7.5C8.20435 7.5 7.44129 7.18393 6.87868 6.62132C6.31607 6.05871 6 5.29565 6 4.5C6 3.70435 6.31607 2.94129 6.87868 2.37868C7.44129 1.81607 8.20435 1.5 9 1.5C9.79565 1.5 10.5587 1.81607 11.1213 2.37868C11.6839 2.94129 12 3.70435 12 4.5ZM18 16.5C18 18 16.5 18 16.5 18H1.5C1.5 18 0 18 0 16.5C0 15 1.5 10.5 9 10.5C16.5 10.5 18 15 18 16.5ZM16.5 16.494C16.4985 16.125 16.269 15.015 15.252 13.998C14.274 13.02 12.4335 12 9 12C5.565 12 3.726 13.02 2.748 13.998C1.731 15.015 1.503 16.125 1.5 16.494H16.5Z"
+                fill="currentColor"
+              />
+            </svg>
+          </a>
+          <a
+            href="#"
+            class="hidden md:flex flex-col justify-center items-center"
+          >
+            <svg
+              class="text-white"
+              width="20"
+              height="20"
+              viewBox="0 0 20 20"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M6.875 13.125C6.875 12.9592 6.94085 12.8003 7.05806 12.6831C7.17527 12.5658 7.33424 12.5 7.5 12.5H12.5C12.6658 12.5 12.8247 12.5658 12.9419 12.6831C13.0592 12.8003 13.125 12.9592 13.125 13.125C13.125 13.2908 13.0592 13.4497 12.9419 13.5669C12.8247 13.6842 12.6658 13.75 12.5 13.75H7.5C7.33424 13.75 7.17527 13.6842 7.05806 13.5669C6.94085 13.4497 6.875 13.2908 6.875 13.125Z"
+                fill="currentColor"
+              />
+              <path
+                d="M4.375 0C4.54076 0 4.69973 0.065848 4.81694 0.183058C4.93415 0.300269 5 0.45924 5 0.625V1.25H15V0.625C15 0.45924 15.0658 0.300269 15.1831 0.183058C15.3003 0.065848 15.4592 0 15.625 0C15.7908 0 15.9497 0.065848 16.0669 0.183058C16.1842 0.300269 16.25 0.45924 16.25 0.625V1.25H17.5C18.163 1.25 18.7989 1.51339 19.2678 1.98223C19.7366 2.45107 20 3.08696 20 3.75V17.5C20 18.163 19.7366 18.7989 19.2678 19.2678C18.7989 19.7366 18.163 20 17.5 20H2.5C1.83696 20 1.20107 19.7366 0.732233 19.2678C0.263392 18.7989 0 18.163 0 17.5V3.75C0 3.08696 0.263392 2.45107 0.732233 1.98223C1.20107 1.51339 1.83696 1.25 2.5 1.25H3.75V0.625C3.75 0.45924 3.81585 0.300269 3.93306 0.183058C4.05027 0.065848 4.20924 0 4.375 0V0ZM2.5 2.5C2.16848 2.5 1.85054 2.6317 1.61612 2.86612C1.3817 3.10054 1.25 3.41848 1.25 3.75V17.5C1.25 17.8315 1.3817 18.1495 1.61612 18.3839C1.85054 18.6183 2.16848 18.75 2.5 18.75H17.5C17.8315 18.75 18.1495 18.6183 18.3839 18.3839C18.6183 18.1495 18.75 17.8315 18.75 17.5V3.75C18.75 3.41848 18.6183 3.10054 18.3839 2.86612C18.1495 2.6317 17.8315 2.5 17.5 2.5H2.5Z"
+                fill="currentColor"
+              />
+              <path
+                d="M3.125 5C3.125 4.83424 3.19085 4.67527 3.30806 4.55806C3.42527 4.44085 3.58424 4.375 3.75 4.375H16.25C16.4158 4.375 16.5747 4.44085 16.6919 4.55806C16.8092 4.67527 16.875 4.83424 16.875 5V6.25C16.875 6.41576 16.8092 6.57473 16.6919 6.69194C16.5747 6.80915 16.4158 6.875 16.25 6.875H3.75C3.58424 6.875 3.42527 6.80915 3.30806 6.69194C3.19085 6.57473 3.125 6.41576 3.125 6.25V5Z"
+                fill="currentColor"
+              />
+            </svg>
+          </a>
+          <a
+            href="#"
+            class="hidden md:flex flex-col justify-center items-center"
+          >
+            <svg
+              class="text-white"
+              width="22"
+              height="24"
+              viewBox="0 0 22 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M11 24.0001C11.7956 24.0001 12.5587 23.684 13.1213 23.1214C13.6839 22.5588 14 21.7957 14 21.0001H8C8 21.7957 8.31607 22.5588 8.87868 23.1214C9.44129 23.684 10.2044 24.0001 11 24.0001ZM11 2.87709L9.8045 3.11859C8.44844 3.39489 7.2295 4.13125 6.35398 5.20302C5.47846 6.2748 5.00015 7.61617 5 9.00009C5 9.94209 4.799 12.2956 4.3115 14.6131C4.0715 15.7636 3.7475 16.9621 3.317 18.0001H18.683C18.2525 16.9621 17.93 15.7651 17.6885 14.6131C17.201 12.2956 17 9.94209 17 9.00009C16.9995 7.61643 16.521 6.27541 15.6455 5.20394C14.7701 4.13247 13.5513 3.39634 12.1955 3.12009L11 2.87559V2.87709ZM20.33 18.0001C20.6645 18.6706 21.0515 19.2016 21.5 19.5001H0.5C0.9485 19.2016 1.3355 18.6706 1.67 18.0001C3.02 15.3001 3.5 10.3201 3.5 9.00009C3.5 5.37009 6.08 2.34009 9.5075 1.64859C9.48656 1.44002 9.50958 1.22938 9.57505 1.03025C9.64052 0.831122 9.74701 0.647926 9.88763 0.492479C10.0283 0.337031 10.1999 0.212784 10.3915 0.127749C10.5831 0.0427135 10.7904 -0.0012207 11 -0.0012207C11.2096 -0.0012207 11.4169 0.0427135 11.6085 0.127749C11.8001 0.212784 11.9717 0.337031 12.1124 0.492479C12.253 0.647926 12.3595 0.831122 12.4249 1.03025C12.4904 1.22938 12.5134 1.44002 12.4925 1.64859C14.1879 1.99344 15.7121 2.91363 16.8069 4.25334C17.9016 5.59305 18.4998 7.26995 18.5 9.00009C18.5 10.3201 18.98 15.3001 20.33 18.0001Z"
+                fill="currentColor"
+              />
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <button
+        type="button"
+        id="notificacao"
+        class="absolute right-0 cursor-pointer p-7 md:hidden"
+      >
+        <svg
+          width="22"
+          height="24"
+          viewBox="0 0 22 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M11 24.0001C11.7956 24.0001 12.5587 23.684 13.1213 23.1214C13.6839 22.5588 14 21.7957 14 21.0001H8C8 21.7957 8.31607 22.5588 8.87868 23.1214C9.44129 23.684 10.2044 24.0001 11 24.0001ZM11 2.87709L9.8045 3.11859C8.44844 3.39489 7.2295 4.13125 6.35398 5.20302C5.47846 6.2748 5.00015 7.61617 5 9.00009C5 9.94209 4.799 12.2956 4.3115 14.6131C4.0715 15.7636 3.7475 16.9621 3.317 18.0001H18.683C18.2525 16.9621 17.93 15.7651 17.6885 14.6131C17.201 12.2956 17 9.94209 17 9.00009C16.9995 7.61643 16.521 6.27541 15.6455 5.20394C14.7701 4.13247 13.5513 3.39634 12.1955 3.12009L11 2.87559V2.87709ZM20.33 18.0001C20.6645 18.6706 21.0515 19.2016 21.5 19.5001H0.5C0.9485 19.2016 1.3355 18.6706 1.67 18.0001C3.02 15.3001 3.5 10.3201 3.5 9.00009C3.5 5.37009 6.08 2.34009 9.5075 1.64859C9.48656 1.44002 9.50958 1.22938 9.57505 1.03025C9.64052 0.831122 9.74701 0.647926 9.88763 0.492479C10.0283 0.337031 10.1999 0.212784 10.3915 0.127749C10.5831 0.0427135 10.7904 -0.0012207 11 -0.0012207C11.2096 -0.0012207 11.4169 0.0427135 11.6085 0.127749C11.8001 0.212784 11.9717 0.337031 12.1124 0.492479C12.253 0.647926 12.3595 0.831122 12.4249 1.03025C12.4904 1.22938 12.5134 1.44002 12.4925 1.64859C14.1879 1.99344 15.7121 2.91363 16.8069 4.25334C17.9016 5.59305 18.4998 7.26995 18.5 9.00009C18.5 10.3201 18.98 15.3001 20.33 18.0001Z"
+            fill="black"
+          />
+        </svg>
+      </button>
+    </header>
+
+    <!-- Container Principal -->
+    <div
+      class="flex flex-col justify-center items-center px-[42px] md:px-[321px]"
+    >
+      <!-- Imagem de Fundo -->
+      <div
+        class="w-full h-[144px] md:h-[250px] md:max-w-[1306px] absolute top-0 md:top-[120px] inset-x-0 mx-auto"
+      >
+        <img
+          src="./assets/images/imagem3.webp"
+          alt="Restaurant"
+          class="w-full h-full object-cover blur-[1.5px] sm:blur-[0px]"
+        />
+      </div>
+
+      <!-- Card do Restaurante -->
+      <div
+        class="rounded-[10px] h-[143px] w-full min-w-[306px] max-w-[306px] sm:min-h-[269px] sm:max-w-[400px] md:max-w-[520px] lg:max-w-[680px] border-2 border-black mt-[122px] md:mt-[182px] z-10 bg-white relative"
+      >
+        <!-- Avatar do Restaurante -->
+        <div
+          class="absolute -top-8 md:-top-[100px] inset-x-0 mx-auto rounded-full bg-amber-200 size-[64px] md:size-[200px]"
+        >
+          <img
+            class="w-full h-full object-cover rounded-full"
+            src="./assets/images/japones.webp"
+            alt="Restaurant Logo"
+          />
+        </div>
+
+        <!-- Conteúdo do Card -->
+        <div
+          class="flex flex-col justify-start items-start h-full px-4 sm:px-[20px] pt-[37px] gap-1 sm:gap-1.5 md:pt-[107px]"
+        >
+          <!-- Nome do Restaurante -->
+          <p class="text-xs md:text-4xl sm:text-sm font-semibold">
+            Sushi Fan - Fanáticos por sushi
+          </p>
+
+          <!-- Divisória -->
+          <hr class="w-full border-t border-gray-300" />
+
+          <!-- Avaliação e Telefone -->
+          <div
+            class="flex flex-col sm:flex-row justify-between items-start sm:items-center w-full gap-1 sm:gap-0"
+          >
+            <!-- Avaliação -->
+            <div class="flex justify-start items-center gap-1">
+              <svg
+                width="10"
+                height="10"
+                viewBox="0 0 10 10"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                class="flex-shrink-0"
+              >
+                <path
+                  d="M2.25739 9.6517C2.01614 9.77545 1.74239 9.55857 1.79114 9.2817L2.30989 6.32545L0.108016 4.22795C-0.0976092 4.0317 0.00926581 3.67295 0.284891 3.6342L3.34614 3.1992L4.71114 0.494824C4.83427 0.251074 5.16739 0.251074 5.29052 0.494824L6.65552 3.1992L9.71677 3.6342C9.99239 3.67295 10.0993 4.0317 9.89302 4.22795L7.69177 6.32545L8.21052 9.2817C8.25927 9.55857 7.98552 9.77545 7.74427 9.6517L4.99989 8.2417L2.25677 9.6517H2.25739Z"
+                  fill="#C9A227"
+                />
+              </svg>
+              <p
+                class="text-[9px] sm:text-[10px] text-amber-600 whitespace-nowrap"
+              >
+                4.7 (823 avaliações)
+              </p>
+            </div>
+
+            <!-- Telefone -->
+            <div class="flex justify-start items-center gap-1">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="10"
+                height="10"
+                viewBox="0 0 10 10"
+                fill="none"
+                class="flex-shrink-0"
+              >
+                <path
+                  d="M2.2838 0.830184C2.2469 0.782723 2.20033 0.743654 2.14718 0.715575C2.09402 0.687496 2.0355 0.671047 1.9755 0.667323C1.9155 0.663599 1.85539 0.672684 1.79917 0.693975C1.74295 0.715265 1.69191 0.748275 1.64943 0.790809L1.00318 1.43768C0.7013 1.74018 0.59005 2.16831 0.721925 2.54393C1.26926 4.09868 2.15961 5.51024 3.32693 6.67393C4.49063 7.84123 5.90219 8.73158 7.45693 9.27893C7.83255 9.41081 8.26068 9.29956 8.56318 8.99769L9.20942 8.35144C9.25196 8.30895 9.28497 8.25791 9.30626 8.20169C9.32755 8.14547 9.33664 8.08536 9.33291 8.02536C9.32919 7.96536 9.31274 7.90684 9.28466 7.85368C9.25658 7.80053 9.21751 7.75396 9.17005 7.71706L7.72818 6.59581C7.67747 6.55648 7.61849 6.52918 7.5557 6.51598C7.4929 6.50277 7.42793 6.50399 7.36567 6.51956L5.99693 6.86143C5.81423 6.9071 5.62281 6.90468 5.44133 6.8544C5.25984 6.80413 5.09447 6.70772 4.9613 6.57456L3.4263 5.03893C3.29303 4.90583 3.1965 4.74049 3.14612 4.559C3.09574 4.37751 3.09322 4.18606 3.1388 4.00331L3.4813 2.63456C3.49687 2.57231 3.49809 2.50733 3.48488 2.44454C3.47168 2.38174 3.44438 2.32277 3.40505 2.27206L2.2838 0.830184ZM1.17755 0.319559C1.28692 0.210153 1.41832 0.125266 1.56301 0.0705351C1.70771 0.0158044 1.86239 -0.00751766 2.01679 0.00211752C2.17119 0.0117527 2.32177 0.0541247 2.45854 0.12642C2.59531 0.198715 2.71513 0.299279 2.81005 0.421434L3.9313 1.86268C4.13693 2.12706 4.20943 2.47143 4.12818 2.79643L3.7863 4.16518C3.76862 4.23608 3.76958 4.31034 3.78907 4.38075C3.80857 4.45117 3.84593 4.51535 3.89755 4.56706L5.43318 6.10268C5.48495 6.15441 5.54923 6.19184 5.61977 6.21133C5.69031 6.23083 5.76469 6.23173 5.83568 6.21393L7.2038 5.87206C7.36418 5.83196 7.53159 5.82884 7.69335 5.86295C7.85512 5.89706 8.00701 5.96749 8.13755 6.06893L9.5788 7.19018C10.0969 7.59331 10.1444 8.35893 9.68068 8.82206L9.03443 9.46831C8.57193 9.93081 7.88068 10.1339 7.2363 9.90706C5.58704 9.32676 4.0896 8.38258 2.85505 7.14456C1.61711 5.91019 0.67293 4.41297 0.0925502 2.76393C-0.1337 2.12018 0.0694252 1.42831 0.531925 0.965809L1.17818 0.319559H1.17755Z"
+                  fill="black"
+                />
+              </svg>
+              <p class="text-[9px] sm:text-[10px] whitespace-nowrap">
+                (11) 91234-5678
+              </p>
+            </div>
+          </div>
+
+          <!-- Preço Médio -->
+          <p class="text-[9px] sm:text-[10px] text-gray-600">
+            Média de R$ 34,70/pessoa
+          </p>
+
+          <!-- Endereço -->
+          <div class="flex items-start gap-1">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="10"
+              height="10"
+              viewBox="0 0 10 10"
+              fill="none"
+              class="flex-shrink-0 mt-0.5"
+            >
+              <path
+                d="M5 0.9375C3.45093 0.9375 2.1875 2.20093 2.1875 3.75C2.1875 4.18945 2.36572 4.6936 2.60742 5.24414C2.84912 5.79468 3.1604 6.37939 3.47656 6.92383C4.10889 8.01392 4.74609 8.92578 4.74609 8.92578L5 9.29688L5.25391 8.92578C5.25391 8.92578 5.89111 8.01392 6.52344 6.92383C6.8396 6.37939 7.15088 5.79468 7.39258 5.24414C7.63428 4.6936 7.8125 4.18945 7.8125 3.75C7.8125 2.20093 6.54907 0.9375 5 0.9375ZM5 1.5625C6.21216 1.5625 7.1875 2.53784 7.1875 3.75C7.1875 4.00024 7.05322 4.47388 6.82617 4.99023C6.59912 5.50659 6.2854 6.0791 5.97656 6.61133C5.48584 7.4585 5.18066 7.90649 5 8.17383C4.81934 7.90649 4.51416 7.4585 4.02344 6.61133C3.7146 6.0791 3.40088 5.50659 3.17383 4.99023C2.94678 4.47388 2.8125 4.00024 2.8125 3.75C2.8125 2.53784 3.78784 1.5625 5 1.5625ZM5 3.125C4.65454 3.125 4.375 3.40454 4.375 3.75C4.375 4.09546 4.65454 4.375 5 4.375C5.34546 4.375 5.625 4.09546 5.625 3.75C5.625 3.40454 5.34546 3.125 5 3.125Z"
+                fill="black"
+              />
+            </svg>
+            <p class="text-[9px] sm:text-[10px] text-gray-600 leading-tight">
+              Av. Dr. Carlos Botelho, 1551 - Centro, São Carlos
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="mt-[40px] flex flex-col justify-center items-center gap-[16px]"
+      >
+        <div class="md:hidden">
+          <div
+            class="border-2 border-black w-[357px] h-[62px] px-[16px] py-[10px] flex justify-between items-center mt-4 cursor-pointer hover:bg-gray-200 rounded-[10px]"
+          >
+            <div class="flex flex-col gap-[5px]">
+              <p class="text-[16px]">Horários de Funcionamento</p>
+              <p class="text-[12px]">Veja os horários de maior lotação</p>
+            </div>
+            <svg
+              width="31"
+              height="30"
+              viewBox="0 0 31 30"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M12.9167 21.25L19.375 15L12.9167 8.75L12.9167 21.25Z"
+                fill="#020202"
+              />
+            </svg>
+          </div>
+          <div
+            class="border-2 border-black w-[357px] h-[62px] px-[16px] py-[10px] flex justify-between items-center mt-4 cursor-pointer hover:bg-gray-200 rounded-[10px]"
+          >
+            <div class="flex flex-col gap-[5px]">
+              <p class="text-[16px]">Mapa de Mesas</p>
+              <p class="text-[12px]">Visualize aqui o local que você deseja</p>
+            </div>
+            <svg
+              width="31"
+              height="30"
+              viewBox="0 0 31 30"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M12.9167 21.25L19.375 15L12.9167 8.75L12.9167 21.25Z"
+                fill="#020202"
+              />
+            </svg>
+          </div>
+          <div
+            class="border-2 border-black w-[357px] h-[62px] px-[16px] py-[10px] flex justify-between items-center mt-4 cursor-pointer hover:bg-gray-200 rounded-[10px]"
+          >
+            <div class="flex flex-col gap-[5px]">
+              <p class="text-[16px]">Cardápio</p>
+            </div>
+            <svg
+              width="31"
+              height="30"
+              viewBox="0 0 31 30"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M12.9167 21.25L19.375 15L12.9167 8.75L12.9167 21.25Z"
+                fill="#020202"
+              />
+            </svg>
+          </div>
+          <div
+            class="w-full flex flex-col justify-center items-center mt-10 mb-20"
+          >
+            <div>
+              <p class="mb-2 font-semibold text-sm">Localização</p>
+              <div
+                id="map"
+                class="w-[365px] h-[138px] rounded-lg border-2 border-black"
+              ></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="justify-center items-start gap-5 hidden md:flex mb-20">
+      <div class="flex flex-col gap-[20px] justify-center items-center">
+        <div
+          class="w-[969px] h-[666px] border border-black relative flex justify-start items-center p-16 rounded-[10px]"
+        >
+          <p class="text-2xl inset-3.5 absolute">Mapa de Mesas</p>
+          <div class="w-full h-full flex items-center justify-center">
+            <img
+              class="max-w-full max-h-full object-contain"
+              src="./assets/images/mapa.webp"
+              alt="Mapa de Mesas"
+            />
+          </div>
+        </div>
+
+        <div
+          class="w-[969px] h-[482px] border border-black relative flex justify-start items-start p-[20px] rounded-[10px] flex-col overflow-y-auto"
+        >
+          <p class="text-2xl w-full mb-5">Cardápio</p>
+
+          <!-- Abas de navegação -->
+          <div class="flex gap-0 w-full mb-6">
+            <button
+              class="flex-1 px-6 py-3 bg-[#EEEEEE] text-base font-medium hover:bg-gray-300 transition-colors rounded-l-lg border-r border-gray-300"
+            >
+              Pratos quentes
+            </button>
+            <button
+              class="flex-1 px-6 py-3 bg-white text-base font-medium hover:bg-[#EEEEEE] transition-colors border-r border-gray-300"
+            >
+              Sushis
+            </button>
+            <button
+              class="flex-1 px-6 py-3 bg-white text-base font-medium hover:bg-[#EEEEEE] transition-colors rounded-r-lg"
+            >
+              Temakis
+            </button>
+          </div>
+
+          <!-- Lista de pratos -->
+          <div class="flex flex-col gap-3 w-full">
+            <div
+              class="border border-gray-300 rounded-lg p-4 hover:shadow-md transition-shadow"
+            >
+              <h3 class="font-semibold text-lg mb-1">Yakissoba Tradicional</h3>
+              <p class="text-sm text-gray-600">
+                Macarrão oriental com legumes frescos e carne bovina ou frango
+              </p>
+            </div>
+
+            <div
+              class="border border-gray-300 rounded-lg p-4 hover:shadow-md transition-shadow"
+            >
+              <h3 class="font-semibold text-lg mb-1">Yakissoba Tradicional</h3>
+              <p class="text-sm text-gray-600">
+                Macarrão oriental com legumes frescos e carne bovina ou frango
+              </p>
+            </div>
+
+            <div
+              class="border border-gray-300 rounded-lg p-4 hover:shadow-md transition-shadow"
+            >
+              <h3 class="font-semibold text-lg mb-1">Yakissoba Tradicional</h3>
+              <p class="text-sm text-gray-600">
+                Macarrão oriental com legumes frescos e carne bovina ou frango
+              </p>
+            </div>
+
+            <div
+              class="border border-gray-300 rounded-lg p-4 hover:shadow-md transition-shadow"
+            >
+              <h3 class="font-semibold text-lg mb-1">Yakissoba Tradicional</h3>
+              <p class="text-sm text-gray-600">
+                Macarrão oriental com legumes frescos e carne bovina ou frango
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex flex-col justify-start items-center gap-5">
+        <form
+          class="border border-black w-[317px] h-[336px] p-[18px] rounded-[10px]"
+        >
+          <p class="text-lg font-semibold mb-4">Faça sua Reserva</p>
+
+          <label for="date" class="block text-sm font-medium mb-1"
+            >Data da Reserva</label
+          >
+          <div
+            class="flex justify-start items-center gap-1 bg-[#EEEEEE] px-3 py-2 rounded mb-4"
+          >
+            <svg
+              width="16"
+              height="17"
+              viewBox="0 0 16 17"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              class="flex-shrink-0"
+            >
+              <path
+                d="M3.5 0.5C3.63261 0.5 3.75979 0.552678 3.85355 0.646447C3.94732 0.740215 4 0.867392 4 1V1.5H12V1C12 0.867392 12.0527 0.740215 12.1464 0.646447C12.2402 0.552678 12.3674 0.5 12.5 0.5C12.6326 0.5 12.7598 0.552678 12.8536 0.646447C12.9473 0.740215 13 0.867392 13 1V1.5H14C14.5304 1.5 15.0391 1.71071 15.4142 2.08579C15.7893 2.46086 16 2.96957 16 3.5V14.5C16 15.0304 15.7893 15.5391 15.4142 15.9142C15.0391 16.2893 14.5304 16.5 14 16.5H2C1.46957 16.5 0.960859 16.2893 0.585786 15.9142C0.210714 15.5391 0 15.0304 0 14.5V3.5C0 2.96957 0.210714 2.46086 0.585786 2.08579C0.960859 1.71071 1.46957 1.5 2 1.5H3V1C3 0.867392 3.05268 0.740215 3.14645 0.646447C3.24021 0.552678 3.36739 0.5 3.5 0.5V0.5ZM2 2.5C1.73478 2.5 1.48043 2.60536 1.29289 2.79289C1.10536 2.98043 1 3.23478 1 3.5V4.5H15V3.5C15 3.23478 14.8946 2.98043 14.7071 2.79289C14.5196 2.60536 14.2652 2.5 14 2.5H2ZM15 5.5H1V14.5C1 14.7652 1.10536 15.0196 1.29289 15.2071C1.48043 15.3946 1.73478 15.5 2 15.5H14C14.2652 15.5 14.5196 15.3946 14.7071 15.2071C14.8946 15.0196 15 14.7652 15 14.5V5.5Z"
+                fill="black"
+              />
+            </svg>
+            <input
+              id="date"
+              type="date"
+              placeholder="Selecione uma data"
+              class="bg-transparent border-none outline-none w-full text-sm relative"
+            />
+          </div>
+
+          <label for="people" class="block text-sm font-medium mb-1"
+            >Número de Pessoas</label
+          >
+          <div
+            class="flex justify-start items-center gap-1 bg-[#EEEEEE] px-3 py-2 rounded mb-4"
+          >
+            <svg
+              width="16"
+              height="17"
+              viewBox="0 0 16 17"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              class="flex-shrink-0"
+            >
+              <path
+                d="M15 14.5C15 14.5 16 14.5 16 13.5C16 12.5 15 9.5 11 9.5C7 9.5 6 12.5 6 13.5C6 14.5 7 14.5 7 14.5H15ZM7.022 13.5C7.01461 13.499 7.00727 13.4976 7 13.496C7.001 13.232 7.167 12.466 7.76 11.776C8.312 11.129 9.282 10.5 11 10.5C12.717 10.5 13.687 11.13 14.24 11.776C14.833 12.466 14.998 13.233 15 13.496L14.992 13.498C14.9874 13.4988 14.9827 13.4995 14.978 13.5H7.022ZM11 7.5C11.5304 7.5 12.0391 7.28929 12.4142 6.91421C12.7893 6.53914 13 6.03043 13 5.5C13 4.96957 12.7893 4.46086 12.4142 4.08579C12.0391 3.71071 11.5304 3.5 11 3.5C10.4696 3.5 9.96086 3.71071 9.58579 4.08579C9.21071 4.46086 9 4.96957 9 5.5C9 6.03043 9.21071 6.53914 9.58579 6.91421C9.96086 7.28929 10.4696 7.5 11 7.5ZM14 5.5C14 5.89397 13.9224 6.28407 13.7716 6.64805C13.6209 7.01203 13.3999 7.34274 13.1213 7.62132C12.8427 7.8999 12.512 8.12087 12.1481 8.27164C11.7841 8.4224 11.394 8.5 11 8.5C10.606 8.5 10.2159 8.4224 9.85195 8.27164C9.48797 8.12087 9.15726 7.8999 8.87868 7.62132C8.6001 7.34274 8.37913 7.01203 8.22836 6.64805C8.0776 6.28407 8 5.89397 8 5.5C8 4.70435 8.31607 3.94129 8.87868 3.37868C9.44129 2.81607 10.2044 2.5 11 2.5C11.7956 2.5 12.5587 2.81607 13.1213 3.37868C13.6839 3.94129 14 4.70435 14 5.5ZM6.936 9.78C6.53598 9.65404 6.12364 9.57123 5.706 9.533C5.47133 9.51068 5.23573 9.49967 5 9.5C1 9.5 0 12.5 0 13.5C0 14.167 0.333 14.5 1 14.5H5.216C5.06776 14.1878 4.99382 13.8455 5 13.5C5 12.49 5.377 11.458 6.09 10.596C6.333 10.302 6.616 10.027 6.936 9.78ZM4.92 10.5C4.32815 11.3893 4.00844 12.4318 4 13.5H1C1 13.24 1.164 12.47 1.76 11.776C2.305 11.14 3.252 10.52 4.92 10.501V10.5ZM1.5 6C1.5 5.20435 1.81607 4.44129 2.37868 3.87868C2.94129 3.31607 3.70435 3 4.5 3C5.29565 3 6.05871 3.31607 6.62132 3.87868C7.18393 4.44129 7.5 5.20435 7.5 6C7.5 6.79565 7.18393 7.55871 6.62132 8.12132C6.05871 8.68393 5.29565 9 4.5 9C3.70435 9 2.94129 8.68393 2.37868 8.12132C1.81607 7.55871 1.5 6.79565 1.5 6ZM4.5 4C3.96957 4 3.46086 4.21071 3.08579 4.58579C2.71071 4.96086 2.5 5.46957 2.5 6C2.5 6.53043 2.71071 7.03914 3.08579 7.41421C3.46086 7.78929 3.96957 8 4.5 8C5.03043 8 5.53914 7.78929 5.91421 7.41421C6.28929 7.03914 6.5 6.53043 6.5 6C6.5 5.46957 6.28929 4.96086 5.91421 4.58579C5.53914 4.21071 5.03043 4 4.5 4Z"
+                fill="black"
+              />
+            </svg>
+            <input
+              id="people"
+              type="number"
+              placeholder="2 pessoas"
+              class="bg-transparent border-none outline-none w-full text-sm"
+              min="1"
+            />
+          </div>
+
+          <button
+            type="submit"
+            class="w-full bg-amarelo-escuro text-white py-2 hover:bg-[#a68620] transition-colors rounded-[8px]"
+          >
+            Reservar
+          </button>
+          <p class="text-[9px] mt-2 text-center">
+            Confirmação instantânea • Cancelamento grátis até 2h antes
+          </p>
+        </form>
+
+        <div
+          class="border border-black w-[317px] h-[495px] rounded-[10px] p-[20px]"
+        >
+          <div class="flex flex-col gap-5">
+            <div class="flex flex-col items-start">
+              <p class="text-2xl">Horário de Funcionamento</p>
+              <p class="text-[10px]">Aberto agora</p>
+            </div>
+            <div class="flex flex-col items-center justify-center gap-1.5">
+              <div
+                class="bg-cinza-escuro text-black flex justify-between items-center w-full p-3 rounded-[4px]"
+              >
+                <p class="text-[14px]">Segunda-feira:</p>
+                <p class="text-[14px]">11h - 15h, 19h - 23h</p>
+              </div>
+              <div
+                class="bg-cinza-escuro text-black flex justify-between items-center w-full p-3 rounded-[4px]"
+              >
+                <p class="text-[14px]">Terça-feira:</p>
+                <p class="text-[14px]">11h - 15h, 19h - 23h</p>
+              </div>
+              <div
+                class="bg-cinza-escuro text-black flex justify-between items-center w-full p-3 rounded-[4px]"
+              >
+                <p class="text-[14px]">Quarta-feira:</p>
+                <p class="text-[14px]">11h - 15h, 19h - 23h</p>
+              </div>
+              <div
+                class="bg-cinza-escuro text-black flex justify-between items-center w-full p-3 rounded-[4px]"
+              >
+                <p class="text-[14px]">Quinta-feira:</p>
+                <p class="text-[14px]">11h - 15h, 19h - 23h</p>
+              </div>
+              <div
+                class="bg-cinza-escuro text-black flex justify-between items-center w-full p-3 rounded-[4px]"
+              >
+                <p class="text-[14px]">Sexta-feira:</p>
+                <p class="text-[14px]">11h - 15h, 19h - 23h</p>
+              </div>
+              <div
+                class="bg-cinza-escuro text-black flex justify-between items-center w-full p-3 rounded-[4px]"
+              >
+                <p class="text-[14px]">Sábado:</p>
+                <p class="text-[14px]">11h - 23h</p>
+              </div>
+              <div
+                class="bg-cinza-escuro text-black flex justify-between items-center w-full p-3 rounded-[4px]"
+              >
+                <p class="text-[14px]">Domingo:</p>
+                <p class="text-[14px]">11h - 22h</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer
+      class="fixed bottom-0 left-0 right-0 bg-white h-20 md:hidden border-t-[1px] border-black text-[12px]"
+    >
+      <nav class="flex flex-row justify-evenly h-20 items-center">
+        <a href="#" class="flex flex-col justify-center items-center">
+          <img class="size-[24px]" src="./assets/icons/home.svg" alt="" />
+          <span>Inicio</span>
+        </a>
+        <a href="#" class="flex flex-col justify-center items-center">
+          <img class="size-[24px]" src="./assets/icons/lupa.svg" alt="" />
+          <span>Pesquisa</span>
+        </a>
+        <a href="#" class="flex flex-col justify-center items-center">
+          <img class="size-[24px]" src="./assets/icons/reservas.svg" alt="" />
+          <span>Reservas</span>
+        </a>
+        <a href="#" class="flex flex-col justify-center items-center">
+          <img class="size-[24px]" src="./assets/icons/user.svg" alt="" />
+          <span>Perfil</span>
+        </a>
+      </nav>
+    </footer>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+      // Esperar o DOM carregar
+      document.addEventListener("DOMContentLoaded", function () {
+        // Coordenadas de São Carlos - Centro (próximo ao endereço mencionado)
+        const lat = -22.0176;
+        const lng = -47.8909;
+
+        // Criar o mapa
+        const map = L.map("map").setView([lat, lng], 15);
+
+        // Adicionar camada de tiles do OpenStreetMap (100% gratuito)
+        L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+          attribution: "© OpenStreetMap contributors",
+          maxZoom: 19,
+        }).addTo(map);
+
+        // Adicionar marcador personalizado
+        const marker = L.marker([lat, lng]).addTo(map);
+
+        // Adicionar popup ao marcador
+        marker.bindPopup(`
+          <div style="padding: 8px; font-family: sans-serif;">
+            <h3 style="font-weight: bold; margin-bottom: 4px; font-size: 14px;">Sushi Fan</h3>
+            <p style="font-size: 12px; margin: 0;">Av. Dr. Carlos Botelho, 1551<br>Centro, São Carlos</p>
+          </div>
+        `);
+      });
+    </script>
+  </body>
 </html>
