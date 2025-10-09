@@ -1000,9 +1000,9 @@
       background-color: #4C0000;
     }
   }
-  .md\:px-6 {
+  .md\:pt-45 {
     @media (width >= 48rem) {
-      padding-inline: calc(var(--spacing) * 6);
+      padding-top: calc(var(--spacing) * 45);
     }
   }
   .md\:pb-0 {
