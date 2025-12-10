@@ -1,0 +1,16 @@
+{
+  "stores": [
+    {
+      "id": 1,
+      "name": "json-server",
+      "address": "typicode",
+      "logo": "http://localhost:3000/logo1.png"
+    },
+    {
+      "id": 2,
+      "name": "json-server",
+      "address": "typicode",
+      "logo": "http://localhost:3000/logo1.png"
+    }
+  ]
+}
