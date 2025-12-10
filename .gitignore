@@ -22,3 +22,16 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+# Dependências do Node.js
+# Esta pasta é gigantesca e pode ser recriada a qualquer momento
+# rodando o comando "npm install". É a regra número 1 do .gitignore!
+node_modules/
+
+# Arquivos de Log e Debug
+# Gerados pelo npm em caso de erros.
+npm-debug.log*
+*.log
+
+# Arquivos de Sistema Operacional
+# Criados automaticamente pelo macOS (Finder).
+.DS_Store
