@@ -1,11 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Input } from "../components/Input";
 import { Button } from "../components/Button";
 import { AuthLayout } from "../layouts/AuthLayout";
+import { isAuthenticated } from "../utils/auth";
 
 const Register = () => {
   const navigate = useNavigate();
+
+  // Redirecionar se já estiver logado
+  useEffect(() => {
+    if (isAuthenticated()) {
+      navigate("/");
+    }
+  }, [navigate]);
 
   const [nome, setNome] = useState("");
   const [cpf, setCpf] = useState("");
@@ -44,7 +52,7 @@ const Register = () => {
     return true;
   };
 
-  const handleRegister = (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
 
     if (
@@ -79,35 +87,56 @@ const Register = () => {
       return;
     }
 
-    const usuariosStr = localStorage.getItem("usuarios");
-    const usuarios = usuariosStr ? JSON.parse(usuariosStr) : [];
+    try {
+      // Verificar se email já existe
+      const emailResponse = await fetch(
+        `http://localhost:3000/users?email=${email}`
+      );
+      const emailExistente = await emailResponse.json();
 
-    const emailExistente = usuarios.some((user) => user.email === email);
-    if (emailExistente) {
-      alert("Este email já está cadastrado no sistema.");
-      return;
+      if (emailExistente.length > 0) {
+        alert("Este email já está cadastrado no sistema.");
+        return;
+      }
+
+      // Verificar se CPF já existe
+      const cpfResponse = await fetch(
+        `http://localhost:3000/users?cpf=${cpf}`
+      );
+      const cpfExistente = await cpfResponse.json();
+
+      if (cpfExistente.length > 0) {
+        alert("Este CPF já está cadastrado no sistema.");
+        return;
+      }
+
+      // Criar novo usuário
+      const novoUsuario = {
+        nomeCompleto: nome,
+        cpf: cpf,
+        dataNascimento: dataNascimento,
+        email: email,
+        senha: senha,
+      };
+
+      const response = await fetch("http://localhost:3000/users", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(novoUsuario),
+      });
+
+      if (response.ok) {
+        alert("🎉 Registro finalizado com sucesso! Você já pode fazer login.");
+        navigate("/login");
+      } else {
+        alert("Erro ao registrar usuário. Tente novamente.");
+      }
+    } catch (error) {
+      console.error("Erro ao registrar:", error);
+      alert("Erro ao conectar com o servidor. Verifique se o json-server está rodando.");
     }
-
-    const cpfExistente = usuarios.some((user) => user.cpf === cpf);
-    if (cpfExistente) {
-      alert("Este CPF já está cadastrado no sistema.");
-      return;
-    }
-
-    const novoUsuario = {
-      nomeCompleto: nome,
-      cpf: cpf,
-      dataNascimento: dataNascimento,
-      email: email,
-      senha: senha,
-    };
-
-    usuarios.push(novoUsuario);
-    localStorage.setItem("usuarios", JSON.stringify(usuarios));
-
-    alert("🎉 Registro finalizado com sucesso! Você já pode fazer login.");
-
-    navigate("/login");
   };
 
   return (

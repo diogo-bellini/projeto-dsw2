@@ -2,7 +2,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { Input } from "../components/Input";
 import { Button } from "../components/Button";
 import { AuthLayout } from "../layouts/AuthLayout";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { isAuthenticated } from "../utils/auth";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -10,7 +11,14 @@ const Login = () => {
 
   const navigate = useNavigate();
 
-  const handleLogin = (e) => {
+  // Redirecionar se já estiver logado
+  useEffect(() => {
+    if (isAuthenticated()) {
+      navigate("/");
+    }
+  }, [navigate]);
+
+  const handleLogin = async (e) => {
     e.preventDefault();
 
     if (!email || !senha) {
@@ -18,22 +26,33 @@ const Login = () => {
       return;
     }
 
-    const usuariosStr = localStorage.getItem("usuarios");
-    const usuarios = usuariosStr ? JSON.parse(usuariosStr) : [];
+    try {
+      // Buscar usuário pelo email e senha
+      const response = await fetch(
+        `http://localhost:3000/users?email=${email}&senha=${senha}`
+      );
+      const usuarios = await response.json();
 
-    const usuarioLogado = usuarios.find(
-      (user) => user.email === email && user.senha === senha
-    );
+      if (usuarios.length > 0) {
+        const usuarioLogado = usuarios[0];
 
-    if (usuarioLogado) {
-      sessionStorage.setItem("usuarioLogado", usuarioLogado.email);
-      const primeiroNome = usuarioLogado.nomeCompleto.split(" ")[0];
+        // Salvar dados do usuário na sessão
+        localStorage.setItem("usuarioLogado", JSON.stringify({
+          id: usuarioLogado.id,
+          email: usuarioLogado.email,
+          nomeCompleto: usuarioLogado.nomeCompleto,
+        }));
 
-      alert(`Bem-vindo, ${primeiroNome}! Login efetuado.`);
+        const primeiroNome = usuarioLogado.nomeCompleto.split(" ")[0];
+        alert(`Bem-vindo, ${primeiroNome}! Login efetuado.`);
 
-      navigate("/home");
-    } else {
-      alert("E-mail ou senha inválidos. Verifique suas credenciais.");
+        navigate("/");
+      } else {
+        alert("E-mail ou senha inválidos. Verifique suas credenciais.");
+      }
+    } catch (error) {
+      console.error("Erro ao fazer login:", error);
+      alert("Erro ao conectar com o servidor. Verifique se o json-server está rodando.");
     }
   };
 

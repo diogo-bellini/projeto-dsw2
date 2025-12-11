@@ -9,40 +9,76 @@ import Schedule from "../components/Schedule";
 import TableMap from "../components/TableMap";
 import TableMapModal from "../components/TableMapModal";
 import MenuModal from "../components/MenuModal";
+import InfoModal from "../components/InfoModal";
 
 export default function Restaurant() {
   const { id } = useParams();
+
+  // --- Estados ---
   const [store, setStore] = useState(null);
+  const [menuItems, setMenuItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
+  // Estados dos Modais
   const [isTableMapModalOpen, setIsTableMapModalOpen] = useState(false);
   const [isMenuModalOpen, setIsMenuModalOpen] = useState(false);
+  const [isInfoModalOpen, setIsInfoModalOpen] = useState(false);
+
+  // Referências do Mapa
   const mapRef = useRef(null);
   const mapInstanceRef = useRef(null);
 
+  // --- 1. Busca de Dados ---
   useEffect(() => {
     if (!id) return;
+    setLoading(true);
 
-    fetch(`http://localhost:3000/stores/${id}`)
-      .then((res) => (res.ok ? res.json() : Promise.reject("Erro ao carregar")))
-      .then((data) => {
-        setStore(data);
+    Promise.all([
+      fetch(`http://localhost:3000/stores/${id}`).then((res) =>
+        res.ok ? res.json() : Promise.reject("Erro ao carregar loja")
+      ),
+      fetch(`http://localhost:3000/menuItems?storeId=${id}`).then((res) =>
+        res.ok ? res.json() : Promise.reject("Erro ao carregar cardápio")
+      ),
+    ])
+      .then(([storeData, menuData]) => {
+        setStore(storeData);
+        setMenuItems(menuData);
         setLoading(false);
       })
       .catch((err) => {
+        console.error(err);
         setError(err);
         setLoading(false);
       });
   }, [id]);
 
-  // Initialize Leaflet map
+  // --- 2. Correção de Resize (Fecha modais ao ir para Desktop) ---
+  useEffect(() => {
+    const handleResize = () => {
+      // Se a tela for maior que 768px (md do Tailwind), fecha tudo
+      if (window.innerWidth >= 768) {
+        setIsInfoModalOpen(false);
+        setIsMenuModalOpen(false);
+        setIsTableMapModalOpen(false);
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  // --- 3. Lógica do Mapa Leaflet ---
   useEffect(() => {
     if (
       !mapRef.current ||
       mapInstanceRef.current ||
       !window.L ||
       isTableMapModalOpen ||
-      isMenuModalOpen
+      isMenuModalOpen ||
+      isInfoModalOpen ||
+      loading
     )
       return;
 
@@ -60,15 +96,20 @@ export default function Restaurant() {
       mapInstanceRef.current?.remove();
       mapInstanceRef.current = null;
     };
-  }, [loading, isTableMapModalOpen, isMenuModalOpen]);
+  }, [loading, isTableMapModalOpen, isMenuModalOpen, isInfoModalOpen]);
 
-  // Remove Leaflet map when any modal opens
+  // Remove o mapa se algum modal abrir (para evitar sobreposição z-index)
   useEffect(() => {
-    if ((isTableMapModalOpen || isMenuModalOpen) && mapInstanceRef.current) {
+    if (
+      (isTableMapModalOpen || isMenuModalOpen || isInfoModalOpen) &&
+      mapInstanceRef.current
+    ) {
       mapInstanceRef.current.remove();
       mapInstanceRef.current = null;
     }
-  }, [isTableMapModalOpen, isMenuModalOpen]);
+  }, [isTableMapModalOpen, isMenuModalOpen, isInfoModalOpen]);
+
+  // --- Renderização ---
 
   if (loading) {
     return (
@@ -81,7 +122,7 @@ export default function Restaurant() {
   if (error) {
     return (
       <div className="flex items-center justify-center min-h-screen">
-        <p className="text-red-500">Erro: {error}</p>
+        <p className="text-red-500">Erro: {error.toString()}</p>
       </div>
     );
   }
@@ -102,9 +143,12 @@ export default function Restaurant() {
 
         <RestaurantCard store={store} />
 
-        {/* Mobile Section */}
+        {/* --- Mobile Section (Botões) --- */}
         <section className="mt-10 flex w-full max-w-sm flex-col gap-4 md:hidden">
-          <button className="flex w-full items-center justify-between rounded-xl border-2 border-black px-4 py-3 hover:bg-gray-50">
+          <button
+            onClick={() => setIsInfoModalOpen(true)}
+            className="flex w-full items-center justify-between rounded-xl border-2 border-black px-4 py-3 hover:bg-gray-50"
+          >
             <span className="text-sm font-medium">
               Horários de Funcionamento
             </span>
@@ -142,8 +186,8 @@ export default function Restaurant() {
             </svg>
           </button>
 
-          {/* Map */}
-          {!isTableMapModalOpen && !isMenuModalOpen && (
+          {/* Mini Mapa Mobile (Só aparece se nenhum modal estiver aberto) */}
+          {!isTableMapModalOpen && !isMenuModalOpen && !isInfoModalOpen && (
             <div className="mt-6 flex w-full flex-col z-0">
               <h2 className="mb-2 text-sm font-semibold">Localização</h2>
               <div
@@ -158,36 +202,41 @@ export default function Restaurant() {
           </button>
         </section>
 
-        {/* Desktop Section */}
+        {/* --- Desktop Section --- */}
         <section className="mb-20 mt-10 hidden w-full max-w-7xl items-start justify-center gap-5 md:flex lg:gap-8">
           {/* Left Column */}
           <div className="flex flex-1 flex-col gap-5 max-w-3xl">
             <TableMap />
-            <Menu />
+            <Menu menuItems={menuItems} />
           </div>
 
           {/* Right Column */}
           <aside className="flex w-full max-w-xs flex-col gap-5 lg:max-w-sm">
-            <ReservationForm />
-            <Schedule />
+            <ReservationForm storeId={id} />
+            <Schedule schedule={store?.schedule} />
           </aside>
         </section>
       </main>
 
       <Footer />
 
-      {/* Table Map Modal for Mobile */}
+      {/* --- Modais --- */}
       <TableMapModal
         isOpen={isTableMapModalOpen}
         onClose={() => setIsTableMapModalOpen(false)}
         storeId={id ? Number(id) : null}
       />
 
-      {/* Menu Modal for Mobile */}
       <MenuModal
         isOpen={isMenuModalOpen}
         onClose={() => setIsMenuModalOpen(false)}
-        storeId={id ? Number(id) : null}
+        menuItems={menuItems}
+      />
+
+      <InfoModal
+        isOpen={isInfoModalOpen}
+        onClose={() => setIsInfoModalOpen(false)}
+        store={store}
       />
     </div>
   );

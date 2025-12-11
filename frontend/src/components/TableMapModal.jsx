@@ -12,18 +12,18 @@ export default function TableMapModal({ isOpen, onClose, storeId }) {
 
       // Buscar dados da loja
       fetch(`http://localhost:3000/stores/${storeId}`)
-        .then(res => res.json())
-        .then(data => setStore(data))
-        .catch(err => console.error("Erro ao carregar loja:", err));
+        .then((res) => res.json())
+        .then((data) => setStore(data))
+        .catch((err) => console.error("Erro ao carregar loja:", err));
 
       // Buscar mesas da loja
       fetch(`http://localhost:3000/tables?storeId=${storeId}`)
-        .then(res => res.json())
-        .then(data => {
+        .then((res) => res.json())
+        .then((data) => {
           setTables(data);
           setLoading(false);
         })
-        .catch(err => {
+        .catch((err) => {
           console.error("Erro ao carregar mesas:", err);
           setLoading(false);
         });
@@ -38,7 +38,7 @@ export default function TableMapModal({ isOpen, onClose, storeId }) {
       <header className="sticky top-0 bg-[#4C0000] text-white px-4 py-4 flex items-center gap-4">
         <button onClick={onClose} className="p-1">
           <svg className="w-6 h-6" fill="white" viewBox="0 0 24 24">
-            <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+            <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" />
           </svg>
         </button>
         <h1 className="text-xl font-semibold">Mapa de Mesas</h1>
@@ -61,45 +61,51 @@ export default function TableMapModal({ isOpen, onClose, storeId }) {
 
               {/* Mesas clicáveis - posicionadas sobre a imagem */}
               {/* Mesa 5 */}
-              {tables.find(t => t.number === 5) && (
+              {tables.find((t) => t.number === 5) && (
                 <button
-                  onClick={() => setSelectedTable(tables.find(t => t.number === 5))}
+                  onClick={() =>
+                    setSelectedTable(tables.find((t) => t.number === 5))
+                  }
                   className={`absolute bottom-[15%] left-[25%] w-12 h-12 rounded-full flex items-center justify-center font-bold transition-all ${
                     selectedTable?.number === 5
                       ? "bg-amber-500 text-white scale-110"
                       : "bg-white/80 text-gray-800 hover:bg-amber-200"
                   }`}
-                  style={{ transform: 'translate(-50%, -50%)' }}
+                  style={{ transform: "translate(-50%, -50%)" }}
                 >
                   5
                 </button>
               )}
 
               {/* Mesa 6 */}
-              {tables.find(t => t.number === 6) && (
+              {tables.find((t) => t.number === 6) && (
                 <button
-                  onClick={() => setSelectedTable(tables.find(t => t.number === 6))}
+                  onClick={() =>
+                    setSelectedTable(tables.find((t) => t.number === 6))
+                  }
                   className={`absolute bottom-[15%] left-[50%] w-12 h-12 rounded-full flex items-center justify-center font-bold transition-all ${
                     selectedTable?.number === 6
                       ? "bg-amber-500 text-white scale-110"
                       : "bg-white/80 text-gray-800 hover:bg-amber-200"
                   }`}
-                  style={{ transform: 'translate(-50%, -50%)' }}
+                  style={{ transform: "translate(-50%, -50%)" }}
                 >
                   6
                 </button>
               )}
 
               {/* Mesa 7 */}
-              {tables.find(t => t.number === 7) && (
+              {tables.find((t) => t.number === 7) && (
                 <button
-                  onClick={() => setSelectedTable(tables.find(t => t.number === 7))}
+                  onClick={() =>
+                    setSelectedTable(tables.find((t) => t.number === 7))
+                  }
                   className={`absolute bottom-[15%] left-[75%] w-12 h-12 rounded-full flex items-center justify-center font-bold transition-all ${
                     selectedTable?.number === 7
                       ? "bg-amber-500 text-white scale-110"
                       : "bg-white/80 text-gray-800 hover:bg-amber-200"
                   }`}
-                  style={{ transform: 'translate(-50%, -50%)' }}
+                  style={{ transform: "translate(-50%, -50%)" }}
                 >
                   7
                 </button>
@@ -147,15 +153,18 @@ export default function TableMapModal({ isOpen, onClose, storeId }) {
             <img className="h-6 w-6" src="/assets/icons/home.svg" alt="" />
             <span className="text-xs">Início</span>
           </a>
-          <a href="#" className="flex flex-col items-center gap-1">
+          <a href="/" className="flex flex-col items-center gap-1">
             <img className="h-6 w-6" src="/assets/icons/lupa.svg" alt="" />
             <span className="text-xs">Pesquisa</span>
           </a>
-          <a href="#" className="flex flex-col items-center gap-1 text-amber-600">
+          <a
+            href="/"
+            className="flex flex-col items-center gap-1 text-amber-600"
+          >
             <img className="h-6 w-6" src="/assets/icons/reservas.svg" alt="" />
             <span className="text-xs font-semibold">Reservas</span>
           </a>
-          <a href="#" className="flex flex-col items-center gap-1">
+          <a href="/" className="flex flex-col items-center gap-1">
             <img className="h-6 w-6" src="/assets/icons/user.svg" alt="" />
             <span className="text-xs">Usuário</span>
           </a>

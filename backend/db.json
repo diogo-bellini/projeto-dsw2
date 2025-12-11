@@ -1,4 +1,14 @@
 {
+  "reservations": [
+    {
+      "storeId": 1,
+      "date": "2025-12-03",
+      "time": "21:23",
+      "people": 1,
+      "createdAt": "2025-12-11T23:24:02.827Z",
+      "id": 1
+    }
+  ],
   "stores": [
     {
       "id": 1,
@@ -12,7 +22,37 @@
       "avgPrice": 34.7,
       "tableMapImage": "/assets/images/mapa.webp",
       "category": "Japonesa",
-      "time": "40 - 50 min"
+      "time": "40 - 50 min",
+      "schedule": [
+        {
+          "day": "Segunda-feira",
+          "hours": "11h - 15h, 19h - 23h"
+        },
+        {
+          "day": "Terça-feira",
+          "hours": "11h - 15h, 19h - 23h"
+        },
+        {
+          "day": "Quarta-feira",
+          "hours": "11h - 15h, 19h - 23h"
+        },
+        {
+          "day": "Quinta-feira",
+          "hours": "11h - 15h, 19h - 23h"
+        },
+        {
+          "day": "Sexta-feira",
+          "hours": "11h - 15h, 19h - 23h"
+        },
+        {
+          "day": "Sábado",
+          "hours": "11h - 23h"
+        },
+        {
+          "day": "Domingo",
+          "hours": "11h - 22h"
+        }
+      ]
     },
     {
       "id": 2,
@@ -23,10 +63,40 @@
       "phone": "(11) 98765-4321",
       "rating": 4.5,
       "reviews": 512,
-      "avgPrice": 45.0,
+      "avgPrice": 45,
       "tableMapImage": "/assets/images/mapa.webp",
       "category": "Pizzaria",
-      "time": "20 - 30 min"
+      "time": "20 - 30 min",
+      "schedule": [
+        {
+          "day": "Segunda-feira",
+          "hours": "Fechado"
+        },
+        {
+          "day": "Terça-feira",
+          "hours": "18h - 23h30"
+        },
+        {
+          "day": "Quarta-feira",
+          "hours": "18h - 23h30"
+        },
+        {
+          "day": "Quinta-feira",
+          "hours": "18h - 23h30"
+        },
+        {
+          "day": "Sexta-feira",
+          "hours": "18h - 00h00"
+        },
+        {
+          "day": "Sábado",
+          "hours": "18h - 00h30"
+        },
+        {
+          "day": "Domingo",
+          "hours": "18h - 23h00"
+        }
+      ]
     },
     {
       "id": 3,
@@ -37,10 +107,40 @@
       "phone": "(16) 2106-9621",
       "rating": 4.8,
       "reviews": 612,
-      "avgPrice": 75.0,
+      "avgPrice": 75,
       "tableMapImage": "/assets/images/mapa.webp",
       "category": "Japonesa",
-      "time": "50 - 60 min"
+      "time": "50 - 60 min",
+      "schedule": [
+        {
+          "day": "Segunda-feira",
+          "hours": "11h - 22h"
+        },
+        {
+          "day": "Terça-feira",
+          "hours": "11h - 22h"
+        },
+        {
+          "day": "Quarta-feira",
+          "hours": "11h - 22h"
+        },
+        {
+          "day": "Quinta-feira",
+          "hours": "11h - 22h"
+        },
+        {
+          "day": "Sexta-feira",
+          "hours": "11h - 22h"
+        },
+        {
+          "day": "Sábado",
+          "hours": "11h - 22h"
+        },
+        {
+          "day": "Domingo",
+          "hours": "12h - 20h"
+        }
+      ]
     },
     {
       "id": 4,
@@ -54,7 +154,37 @@
       "avgPrice": 34.7,
       "tableMapImage": "/assets/images/mapa.webp",
       "category": "Japonesa",
-      "time": "40 - 50 min"
+      "time": "40 - 50 min",
+      "schedule": [
+        {
+          "day": "Segunda-feira",
+          "hours": "11h - 15h, 19h - 23h"
+        },
+        {
+          "day": "Terça-feira",
+          "hours": "11h - 15h, 19h - 23h"
+        },
+        {
+          "day": "Quarta-feira",
+          "hours": "11h - 15h, 19h - 23h"
+        },
+        {
+          "day": "Quinta-feira",
+          "hours": "11h - 15h, 19h - 23h"
+        },
+        {
+          "day": "Sexta-feira",
+          "hours": "11h - 15h, 19h - 23h"
+        },
+        {
+          "day": "Sábado",
+          "hours": "11h - 23h"
+        },
+        {
+          "day": "Domingo",
+          "hours": "11h - 22h"
+        }
+      ]
     },
     {
       "id": 5,
@@ -65,10 +195,40 @@
       "phone": "(11) 98765-4321",
       "rating": 4.5,
       "reviews": 512,
-      "avgPrice": 45.0,
+      "avgPrice": 45,
       "tableMapImage": "/assets/images/mapa.webp",
       "category": "Pizzaria",
-      "time": "20 - 30 min"
+      "time": "20 - 30 min",
+      "schedule": [
+        {
+          "day": "Segunda-feira",
+          "hours": "Fechado"
+        },
+        {
+          "day": "Terça-feira",
+          "hours": "18h - 23h30"
+        },
+        {
+          "day": "Quarta-feira",
+          "hours": "18h - 23h30"
+        },
+        {
+          "day": "Quinta-feira",
+          "hours": "18h - 23h30"
+        },
+        {
+          "day": "Sexta-feira",
+          "hours": "18h - 00h00"
+        },
+        {
+          "day": "Sábado",
+          "hours": "18h - 00h30"
+        },
+        {
+          "day": "Domingo",
+          "hours": "18h - 23h00"
+        }
+      ]
     },
     {
       "id": 6,
@@ -79,10 +239,40 @@
       "phone": "(16) 2106-9621",
       "rating": 4.8,
       "reviews": 612,
-      "avgPrice": 75.0,
+      "avgPrice": 75,
       "tableMapImage": "/assets/images/mapa.webp",
       "category": "Japonesa",
-      "time": "50 - 60 min"
+      "time": "50 - 60 min",
+      "schedule": [
+        {
+          "day": "Segunda-feira",
+          "hours": "11h - 22h"
+        },
+        {
+          "day": "Terça-feira",
+          "hours": "11h - 22h"
+        },
+        {
+          "day": "Quarta-feira",
+          "hours": "11h - 22h"
+        },
+        {
+          "day": "Quinta-feira",
+          "hours": "11h - 22h"
+        },
+        {
+          "day": "Sexta-feira",
+          "hours": "11h - 22h"
+        },
+        {
+          "day": "Sábado",
+          "hours": "11h - 22h"
+        },
+        {
+          "day": "Domingo",
+          "hours": "12h - 20h"
+        }
+      ]
     },
     {
       "id": 7,
@@ -96,7 +286,37 @@
       "avgPrice": 34.7,
       "tableMapImage": "/assets/images/mapa.webp",
       "category": "Japonesa",
-      "time": "40 - 50 min"
+      "time": "40 - 50 min",
+      "schedule": [
+        {
+          "day": "Segunda-feira",
+          "hours": "11h - 15h, 19h - 23h"
+        },
+        {
+          "day": "Terça-feira",
+          "hours": "11h - 15h, 19h - 23h"
+        },
+        {
+          "day": "Quarta-feira",
+          "hours": "11h - 15h, 19h - 23h"
+        },
+        {
+          "day": "Quinta-feira",
+          "hours": "11h - 15h, 19h - 23h"
+        },
+        {
+          "day": "Sexta-feira",
+          "hours": "11h - 15h, 19h - 23h"
+        },
+        {
+          "day": "Sábado",
+          "hours": "11h - 23h"
+        },
+        {
+          "day": "Domingo",
+          "hours": "11h - 22h"
+        }
+      ]
     },
     {
       "id": 8,
@@ -107,10 +327,40 @@
       "phone": "(11) 98765-4321",
       "rating": 4.5,
       "reviews": 512,
-      "avgPrice": 45.0,
+      "avgPrice": 45,
       "tableMapImage": "/assets/images/mapa.webp",
       "category": "Pizzaria",
-      "time": "20 - 30 min"
+      "time": "20 - 30 min",
+      "schedule": [
+        {
+          "day": "Segunda-feira",
+          "hours": "Fechado"
+        },
+        {
+          "day": "Terça-feira",
+          "hours": "18h - 23h30"
+        },
+        {
+          "day": "Quarta-feira",
+          "hours": "18h - 23h30"
+        },
+        {
+          "day": "Quinta-feira",
+          "hours": "18h - 23h30"
+        },
+        {
+          "day": "Sexta-feira",
+          "hours": "18h - 00h00"
+        },
+        {
+          "day": "Sábado",
+          "hours": "18h - 00h30"
+        },
+        {
+          "day": "Domingo",
+          "hours": "18h - 23h00"
+        }
+      ]
     },
     {
       "id": 9,
@@ -121,10 +371,40 @@
       "phone": "(16) 2106-9621",
       "rating": 4.8,
       "reviews": 612,
-      "avgPrice": 75.0,
+      "avgPrice": 75,
       "tableMapImage": "/assets/images/mapa.webp",
       "category": "Japonesa",
-      "time": "50 - 60 min"
+      "time": "50 - 60 min",
+      "schedule": [
+        {
+          "day": "Segunda-feira",
+          "hours": "11h - 22h"
+        },
+        {
+          "day": "Terça-feira",
+          "hours": "11h - 22h"
+        },
+        {
+          "day": "Quarta-feira",
+          "hours": "11h - 22h"
+        },
+        {
+          "day": "Quinta-feira",
+          "hours": "11h - 22h"
+        },
+        {
+          "day": "Sexta-feira",
+          "hours": "11h - 22h"
+        },
+        {
+          "day": "Sábado",
+          "hours": "11h - 22h"
+        },
+        {
+          "day": "Domingo",
+          "hours": "12h - 20h"
+        }
+      ]
     },
     {
       "id": 10,
@@ -138,7 +418,37 @@
       "avgPrice": 34.7,
       "tableMapImage": "/assets/images/mapa.webp",
       "category": "Japonesa",
-      "time": "40 - 50 min"
+      "time": "40 - 50 min",
+      "schedule": [
+        {
+          "day": "Segunda-feira",
+          "hours": "11h - 15h, 19h - 23h"
+        },
+        {
+          "day": "Terça-feira",
+          "hours": "11h - 15h, 19h - 23h"
+        },
+        {
+          "day": "Quarta-feira",
+          "hours": "11h - 15h, 19h - 23h"
+        },
+        {
+          "day": "Quinta-feira",
+          "hours": "11h - 15h, 19h - 23h"
+        },
+        {
+          "day": "Sexta-feira",
+          "hours": "11h - 15h, 19h - 23h"
+        },
+        {
+          "day": "Sábado",
+          "hours": "11h - 23h"
+        },
+        {
+          "day": "Domingo",
+          "hours": "11h - 22h"
+        }
+      ]
     },
     {
       "id": 11,
@@ -149,10 +459,40 @@
       "phone": "(11) 98765-4321",
       "rating": 4.5,
       "reviews": 512,
-      "avgPrice": 45.0,
+      "avgPrice": 45,
       "tableMapImage": "/assets/images/mapa.webp",
       "category": "Pizzaria",
-      "time": "20 - 30 min"
+      "time": "20 - 30 min",
+      "schedule": [
+        {
+          "day": "Segunda-feira",
+          "hours": "Fechado"
+        },
+        {
+          "day": "Terça-feira",
+          "hours": "18h - 23h30"
+        },
+        {
+          "day": "Quarta-feira",
+          "hours": "18h - 23h30"
+        },
+        {
+          "day": "Quinta-feira",
+          "hours": "18h - 23h30"
+        },
+        {
+          "day": "Sexta-feira",
+          "hours": "18h - 00h00"
+        },
+        {
+          "day": "Sábado",
+          "hours": "18h - 00h30"
+        },
+        {
+          "day": "Domingo",
+          "hours": "18h - 23h00"
+        }
+      ]
     },
     {
       "id": 12,
@@ -163,10 +503,40 @@
       "phone": "(16) 2106-9621",
       "rating": 4.8,
       "reviews": 612,
-      "avgPrice": 75.0,
+      "avgPrice": 75,
       "tableMapImage": "/assets/images/mapa.webp",
       "category": "Japonesa",
-      "time": "50 - 60 min"
+      "time": "50 - 60 min",
+      "schedule": [
+        {
+          "day": "Segunda-feira",
+          "hours": "11h - 22h"
+        },
+        {
+          "day": "Terça-feira",
+          "hours": "11h - 22h"
+        },
+        {
+          "day": "Quarta-feira",
+          "hours": "11h - 22h"
+        },
+        {
+          "day": "Quinta-feira",
+          "hours": "11h - 22h"
+        },
+        {
+          "day": "Sexta-feira",
+          "hours": "11h - 22h"
+        },
+        {
+          "day": "Sábado",
+          "hours": "11h - 22h"
+        },
+        {
+          "day": "Domingo",
+          "hours": "12h - 20h"
+        }
+      ]
     },
     {
       "id": 13,
@@ -180,7 +550,37 @@
       "avgPrice": 34.7,
       "tableMapImage": "/assets/images/mapa.webp",
       "category": "Japonesa",
-      "time": "40 - 50 min"
+      "time": "40 - 50 min",
+      "schedule": [
+        {
+          "day": "Segunda-feira",
+          "hours": "11h - 15h, 19h - 23h"
+        },
+        {
+          "day": "Terça-feira",
+          "hours": "11h - 15h, 19h - 23h"
+        },
+        {
+          "day": "Quarta-feira",
+          "hours": "11h - 15h, 19h - 23h"
+        },
+        {
+          "day": "Quinta-feira",
+          "hours": "11h - 15h, 19h - 23h"
+        },
+        {
+          "day": "Sexta-feira",
+          "hours": "11h - 15h, 19h - 23h"
+        },
+        {
+          "day": "Sábado",
+          "hours": "11h - 23h"
+        },
+        {
+          "day": "Domingo",
+          "hours": "11h - 22h"
+        }
+      ]
     },
     {
       "id": 14,
@@ -191,10 +591,40 @@
       "phone": "(11) 98765-4321",
       "rating": 4.5,
       "reviews": 512,
-      "avgPrice": 45.0,
+      "avgPrice": 45,
       "tableMapImage": "/assets/images/mapa.webp",
       "category": "Pizzaria",
-      "time": "20 - 30 min"
+      "time": "20 - 30 min",
+      "schedule": [
+        {
+          "day": "Segunda-feira",
+          "hours": "Fechado"
+        },
+        {
+          "day": "Terça-feira",
+          "hours": "18h - 23h30"
+        },
+        {
+          "day": "Quarta-feira",
+          "hours": "18h - 23h30"
+        },
+        {
+          "day": "Quinta-feira",
+          "hours": "18h - 23h30"
+        },
+        {
+          "day": "Sexta-feira",
+          "hours": "18h - 00h00"
+        },
+        {
+          "day": "Sábado",
+          "hours": "18h - 00h30"
+        },
+        {
+          "day": "Domingo",
+          "hours": "18h - 23h00"
+        }
+      ]
     },
     {
       "id": 15,
@@ -205,10 +635,40 @@
       "phone": "(16) 2106-9621",
       "rating": 4.8,
       "reviews": 612,
-      "avgPrice": 75.0,
+      "avgPrice": 75,
       "tableMapImage": "/assets/images/mapa.webp",
       "category": "Japonesa",
-      "time": "50 - 60 min"
+      "time": "50 - 60 min",
+      "schedule": [
+        {
+          "day": "Segunda-feira",
+          "hours": "11h - 22h"
+        },
+        {
+          "day": "Terça-feira",
+          "hours": "11h - 22h"
+        },
+        {
+          "day": "Quarta-feira",
+          "hours": "11h - 22h"
+        },
+        {
+          "day": "Quinta-feira",
+          "hours": "11h - 22h"
+        },
+        {
+          "day": "Sexta-feira",
+          "hours": "11h - 22h"
+        },
+        {
+          "day": "Sábado",
+          "hours": "11h - 22h"
+        },
+        {
+          "day": "Domingo",
+          "hours": "12h - 20h"
+        }
+      ]
     },
     {
       "id": 16,
@@ -222,7 +682,37 @@
       "avgPrice": 34.7,
       "tableMapImage": "/assets/images/mapa.webp",
       "category": "Japonesa",
-      "time": "40 - 50 min"
+      "time": "40 - 50 min",
+      "schedule": [
+        {
+          "day": "Segunda-feira",
+          "hours": "11h - 15h, 19h - 23h"
+        },
+        {
+          "day": "Terça-feira",
+          "hours": "11h - 15h, 19h - 23h"
+        },
+        {
+          "day": "Quarta-feira",
+          "hours": "11h - 15h, 19h - 23h"
+        },
+        {
+          "day": "Quinta-feira",
+          "hours": "11h - 15h, 19h - 23h"
+        },
+        {
+          "day": "Sexta-feira",
+          "hours": "11h - 15h, 19h - 23h"
+        },
+        {
+          "day": "Sábado",
+          "hours": "11h - 23h"
+        },
+        {
+          "day": "Domingo",
+          "hours": "11h - 22h"
+        }
+      ]
     },
     {
       "id": 17,
@@ -233,10 +723,40 @@
       "phone": "(11) 98765-4321",
       "rating": 4.5,
       "reviews": 512,
-      "avgPrice": 45.0,
+      "avgPrice": 45,
       "tableMapImage": "/assets/images/mapa.webp",
       "category": "Pizzaria",
-      "time": "20 - 30 min"
+      "time": "20 - 30 min",
+      "schedule": [
+        {
+          "day": "Segunda-feira",
+          "hours": "Fechado"
+        },
+        {
+          "day": "Terça-feira",
+          "hours": "18h - 23h30"
+        },
+        {
+          "day": "Quarta-feira",
+          "hours": "18h - 23h30"
+        },
+        {
+          "day": "Quinta-feira",
+          "hours": "18h - 23h30"
+        },
+        {
+          "day": "Sexta-feira",
+          "hours": "18h - 00h00"
+        },
+        {
+          "day": "Sábado",
+          "hours": "18h - 00h30"
+        },
+        {
+          "day": "Domingo",
+          "hours": "18h - 23h00"
+        }
+      ]
     },
     {
       "id": 18,
@@ -247,10 +767,40 @@
       "phone": "(16) 2106-9621",
       "rating": 4.8,
       "reviews": 612,
-      "avgPrice": 75.0,
+      "avgPrice": 75,
       "tableMapImage": "/assets/images/mapa.webp",
       "category": "Japonesa",
-      "time": "50 - 60 min"
+      "time": "50 - 60 min",
+      "schedule": [
+        {
+          "day": "Segunda-feira",
+          "hours": "11h - 22h"
+        },
+        {
+          "day": "Terça-feira",
+          "hours": "11h - 22h"
+        },
+        {
+          "day": "Quarta-feira",
+          "hours": "11h - 22h"
+        },
+        {
+          "day": "Quinta-feira",
+          "hours": "11h - 22h"
+        },
+        {
+          "day": "Sexta-feira",
+          "hours": "11h - 22h"
+        },
+        {
+          "day": "Sábado",
+          "hours": "11h - 22h"
+        },
+        {
+          "day": "Domingo",
+          "hours": "12h - 20h"
+        }
+      ]
     }
   ],
   "tables": [
@@ -465,6 +1015,16 @@
       "url": "http://localhost:3000/banner2.png"
     }
   ],
+  "users": [
+    {
+      "nomeCompleto": "Jose Maia de Oliveira",
+      "cpf": "02317009623",
+      "dataNascimento": "2003-12-27",
+      "email": "josemaia.comp@gmail.com",
+      "senha": "Senha123",
+      "id": 1
+    }
+  ],
   "menuItems": [
     {
       "id": 1,
@@ -584,6 +1144,69 @@
       "category": "Temakis",
       "name": "Temaki de Camarão Empanado",
       "description": "Sushi empanado recheado com salmão e cream cheese"
+    },
+    {
+      "id": 18,
+      "storeId": 2,
+      "category": "Pizzas Tradicionais",
+      "name": "Pizza Calabresa",
+      "description": "Molho de tomate especial, mussarela, calabresa fatiada, cebola e azeitonas pretas"
+    },
+    {
+      "id": 19,
+      "storeId": 2,
+      "category": "Pizzas Tradicionais",
+      "name": "Pizza Margherita",
+      "description": "Molho de tomate artesanal, mussarela de búfala, rodelas de tomate e manjericão fresco"
+    },
+    {
+      "id": 20,
+      "storeId": 2,
+      "category": "Pizzas Tradicionais",
+      "name": "Pizza Portuguesa",
+      "description": "Mussarela, presunto, ovos cozidos, ervilha, cebola e azeitonas"
+    },
+    {
+      "id": 21,
+      "storeId": 2,
+      "category": "Pizzas Especiais",
+      "name": "Pizza 4 Queijos",
+      "description": "Mussarela, provolone, gorgonzola e catupiry legítimo"
+    },
+    {
+      "id": 22,
+      "storeId": 2,
+      "category": "Pizzas Especiais",
+      "name": "Pizza de Pepperoni",
+      "description": "Mussarela coberta com fatias de pepperoni crocante"
+    },
+    {
+      "id": 23,
+      "storeId": 3,
+      "category": "Pratos Executivos",
+      "name": "Frango Xadrez",
+      "description": "Cubos de frango com pimentões, cebola e amendoim ao molho shoyu"
+    },
+    {
+      "id": 24,
+      "storeId": 3,
+      "category": "Pratos Executivos",
+      "name": "Carne com Brócolis",
+      "description": "Tiras de carne bovina salteadas com brócolis frescos e molho de ostra"
+    },
+    {
+      "id": 25,
+      "storeId": 3,
+      "category": "Especiais Jin Jin",
+      "name": "Yakisoba Especial Misto",
+      "description": "Versão especial com carne, frango, camarão e legumes selecionados"
+    },
+    {
+      "id": 26,
+      "storeId": 3,
+      "category": "Entradas",
+      "name": "Rolinho Primavera",
+      "description": "Massa fina crocante recheada com legumes e carne"
     }
   ]
 }

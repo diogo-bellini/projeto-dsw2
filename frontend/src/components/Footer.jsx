@@ -1,9 +1,9 @@
 export default function Footer() {
   const navItems = [
-    { href: "http://localhost:5173/home", icon: "/assets/icons/home.svg", label: "Início" },
-    { href: "#", icon: "/assets/icons/lupa.svg", label: "Pesquisa" },
-    { href: "#", icon: "/assets/icons/reservas.svg", label: "Reservas" },
-    { href: "#", icon: "/assets/icons/user.svg", label: "Perfil" },
+    { href: "/", icon: "/assets/icons/home.svg", label: "Início" },
+    { href: "/", icon: "/assets/icons/lupa.svg", label: "Pesquisa" },
+    { href: "/", icon: "/assets/icons/reservas.svg", label: "Reservas" },
+    { href: "/", icon: "/assets/icons/user.svg", label: "Perfil" },
   ];
 
   return (

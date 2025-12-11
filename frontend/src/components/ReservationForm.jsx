@@ -1,23 +1,63 @@
 import { useState } from "react";
 
-export default function ReservationForm() {
-  const [formData, setFormData] = useState({ date: "", people: "" });
+// Recebendo storeId para salvar qual restaurante foi reservado
+export default function ReservationForm({ storeId }) {
+  const [formData, setFormData] = useState({ date: "", time: "", people: "" });
+  const [isSubmitting, setIsSubmitting] = useState(false); // Para feedback visual
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Reserva:", formData);
+
+    if (!storeId) {
+      alert("Erro: ID da loja não identificado.");
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    // Montar o objeto que vai para o banco
+    const newReservation = {
+      storeId: Number(storeId), // Converte para número por segurança
+      date: formData.date,
+      time: formData.time,
+      people: Number(formData.people), // Salva como número
+      createdAt: new Date().toISOString(), // Data de criação do registro
+    };
+
+    try {
+      const response = await fetch("http://localhost:3000/reservations", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newReservation),
+      });
+
+      if (response.ok) {
+        alert("Reserva realizada com sucesso!");
+        // Limpar o formulário
+        setFormData({ date: "", time: "", people: "" });
+      } else {
+        alert("Ocorreu um erro ao realizar a reserva.");
+      }
+    } catch (error) {
+      console.error("Erro na requisição:", error);
+      alert("Erro de conexão com o servidor.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
     <form
       onSubmit={handleSubmit}
-      className="w-full rounded-xl border border-black p-5"
+      className="w-full rounded-xl border border-black p-5 bg-white"
     >
       <h2 className="mb-4 text-base font-semibold lg:text-lg">
         Faça sua Reserva
       </h2>
 
-      {/* Date */}
+      {/* --- DATA --- */}
       <label htmlFor="date" className="mb-1 block text-sm font-medium">
         Data da Reserva
       </label>
@@ -28,13 +68,41 @@ export default function ReservationForm() {
         <input
           id="date"
           type="date"
+          required
           value={formData.date}
           onChange={(e) => setFormData({ ...formData, date: e.target.value })}
           className="w-full bg-transparent text-sm outline-none"
         />
       </div>
 
-      {/* People */}
+      {/* --- HORÁRIO --- */}
+      <label htmlFor="time" className="mb-1 block text-sm font-medium">
+        Horário
+      </label>
+      <div className="mb-4 flex items-center gap-2 rounded bg-gray-200 px-3 py-2">
+        <svg
+          className="h-4 w-4 text-black"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <circle cx="12" cy="12" r="10" />
+          <polyline points="12 6 12 12 16 14" />
+        </svg>
+        <input
+          id="time"
+          type="time"
+          required
+          value={formData.time}
+          onChange={(e) => setFormData({ ...formData, time: e.target.value })}
+          className="w-full bg-transparent text-sm outline-none"
+        />
+      </div>
+
+      {/* --- PESSOAS --- */}
       <label htmlFor="people" className="mb-1 block text-sm font-medium">
         Número de Pessoas
       </label>
@@ -47,6 +115,7 @@ export default function ReservationForm() {
           type="number"
           placeholder="2 pessoas"
           min="1"
+          required
           value={formData.people}
           onChange={(e) => setFormData({ ...formData, people: e.target.value })}
           className="w-full bg-transparent text-sm outline-none"
@@ -55,9 +124,16 @@ export default function ReservationForm() {
 
       <button
         type="submit"
-        className="w-full rounded-lg bg-[#C9A227] py-2 text-sm font-medium text-white hover:bg-[#a68620]"
+        disabled={isSubmitting}
+        className={`w-full rounded-lg py-2 text-sm font-medium text-white transition-colors
+          ${
+            isSubmitting
+              ? "bg-gray-400 cursor-not-allowed"
+              : "bg-[#C9A227] hover:bg-[#a68620]"
+          }
+        `}
       >
-        Reservar
+        {isSubmitting ? "Reservando..." : "Reservar"}
       </button>
       <p className="mt-2 text-center text-xs text-gray-600">
         Confirmação instantânea • Cancelamento grátis até 2h antes
