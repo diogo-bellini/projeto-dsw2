@@ -19,7 +19,7 @@ export default function Home() {
       const response2 = await fetch(`${baseUrl}/banners`);
       const data2 = await response2.json();
       setBanners(data2);
-      console.log(data2)
+      console.log(data2);
     }
 
     fetchData();
@@ -29,11 +29,11 @@ export default function Home() {
     <div className="flex flex-col bg-white hide-scrollbar">
       <Header />
       <main className="pb-20 md:pb-10 md:pt-35 xl:pt-40">
-        <RestaurantCarousel restaurants={stores} name={"Sugeridos"}/>
+        <RestaurantCarousel restaurants={stores} name={"Sugeridos"} />
         <BannerGeral banners={banners} />
-        <RestaurantCarousel restaurants={stores} name={"Promoções da Semana"}/>
+        <RestaurantCarousel restaurants={stores} name={"Promoções da Semana"} />
         <BannerGeral banners={banners} />
-        <RestaurantCarousel restaurants={stores} name={"Outros"}/>
+        <RestaurantCarousel restaurants={stores} name={"Outros"} />
       </main>
       <Footer />
     </div>
