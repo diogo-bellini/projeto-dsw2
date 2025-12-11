@@ -26,7 +26,7 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="flex flex-col bg-white">
+    <div className="flex flex-col bg-white hide-scrollbar">
       <Header />
       <main className="pb-20 md:pb-10 md:pt-35 xl:pt-40">
         <RestaurantCarousel restaurants={stores} name={"Sugeridos"}/>

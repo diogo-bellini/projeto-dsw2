@@ -569,20 +569,8 @@
   .bg-\[\#C9A227\] {
     background-color: #C9A227;
   }
-  .bg-\[\#EAEEEE\] {
-    background-color: #EAEEEE;
-  }
-  .bg-\[\#ECEEEE\] {
-    background-color: #ECEEEE;
-  }
-  .bg-\[\#EEDEEEE\] {
-    background-color: #EEDEEEE;
-  }
   .bg-\[\#EEEEEE\] {
     background-color: #EEEEEE;
-  }
-  .bg-\[\#EEEEE\] {
-    background-color: #EEEEE;
   }
   .bg-amber-200 {
     background-color: var(--color-amber-200);
@@ -703,9 +691,6 @@
   }
   .pl-10 {
     padding-left: calc(var(--spacing) * 10);
-  }
-  .pl-15 {
-    padding-left: calc(var(--spacing) * 15);
   }
   .text-center {
     text-align: center;
@@ -1209,6 +1194,13 @@
 body {
   font-family: var(--font-family-sans);
   box-sizing: border-box;
+}
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 @property --tw-scale-x {
   syntax: "*";
