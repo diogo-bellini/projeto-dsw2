@@ -3,24 +3,30 @@
     {
       "id": 1,
       "name": "Sushi Fan - Fanáticos por sushi",
+      "namepiece": "Sushi Fan",
       "address": "Av. Dr. Carlos Botelho, 1551 - Centro, São Carlos",
       "logo": "http://localhost:3000/logo1.png",
       "phone": "(11) 91234-5678",
       "rating": 4.7,
       "reviews": 823,
       "avgPrice": 34.7,
-      "tableMapImage": "/assets/images/mapa.webp"
+      "tableMapImage": "/assets/images/mapa.webp",
+      "category": "Japonesa",
+      "time": "40 - 50 min"
     },
     {
       "id": 2,
       "name": "Pizzaria Bella Italia",
+      "namepiece": "Bella Italia",
       "address": "Rua das Flores, 200 - Centro, São Carlos",
-      "logo": "http://localhost:3000/logo2.png",
+      "logo": "http://localhost:3000/logo2.jpeg",
       "phone": "(11) 98765-4321",
       "rating": 4.5,
       "reviews": 512,
       "avgPrice": 45.0,
-      "tableMapImage": "/assets/images/mapa.webp"
+      "tableMapImage": "/assets/images/mapa.webp",
+      "category": "Pizzaria",
+      "time": "20 - 30 min"
     }
   ],
   "tables": [
@@ -207,6 +213,24 @@
       "capacity": 4,
       "description": "Mesa bem posicionada com ambiente acolhedor e iluminado.",
       "reservationFrequency": "De 2 a 4 vezes por dia."
+    }
+  ],
+  "banners": [
+    {
+      "id": 1,
+      "url": "http://localhost:3000/banner1.png"
+    },
+    {
+      "id": 2,
+      "url": "http://localhost:3000/banner2.png"
+    },
+    {
+      "id": 3,
+      "url": "http://localhost:3000/banner1.png"
+    },
+    {
+      "id": 4,
+      "url": "http://localhost:3000/banner2.png"
     }
   ],
   "menuItems": [
