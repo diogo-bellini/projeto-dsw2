@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { baseUrl } from "../const";
-import imagem1 from "../assets/images/imagem1.png";
 
 function Home() {
   const [stores, setStores] = useState([]);
@@ -20,9 +19,9 @@ function Home() {
     <div>
       <h1>Ola tudo bem</h1>
       {stores.map((store) => (
-        <div>
-          <img key={store.id} src={store.logo} alt="" />
-          <img key={store.id} src={imagem1} alt="" />
+        <div key={store.id}>
+          <img src={store.logo} alt="" />
+          <img src="/assets/images/imagem1.png" alt="" />
         </div>
       ))}
     </div>
