@@ -17,7 +17,7 @@ function Home() {
 
   return (
     <div>
-      <h1>Ola tudo bem</h1>
+      <h1 className="text-red-300">Ola tudo dasda da</h1>
       {stores.map((store) => (
         <div key={store.id}>
           <img src={store.logo} alt="" />
