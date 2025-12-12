@@ -5,18 +5,14 @@ export default function InfoModal({ isOpen, onClose, store }) {
 
   return (
     <div className="fixed inset-0 z-50 bg-white overflow-y-auto animate-fadeIn">
-      {/* --- Header com Imagem --- */}
       <div className="relative h-48 md:h-64 w-full">
         <img
-          // ALTERAÇÃO AQUI: Usa o banner da loja ou o fallback
           src={store.banner || "/assets/images/imagem3.webp"}
           alt="Capa"
           className="w-full h-full object-cover"
         />
-        {/* Overlay escuro para o botão de voltar aparecer melhor */}
         <div className="absolute inset-0 bg-black/30" />
 
-        {/* Botão Voltar */}
         <button
           onClick={onClose}
           className="absolute top-4 left-4 p-2 rounded-full bg-white/20 hover:bg-white/40 backdrop-blur-sm transition-colors"
@@ -37,10 +33,8 @@ export default function InfoModal({ isOpen, onClose, store }) {
         </button>
       </div>
 
-      {/* --- Card Flutuante --- */}
       <div className="relative px-6 -mt-16 mb-6">
         <div className="bg-white rounded-xl shadow-lg border border-gray-100 p-4 flex flex-col gap-2 text-center items-center relative z-10">
-          {/* Logo Circular sobrepondo */}
           <div className="-mt-12 w-20 h-20 rounded-full border-4 border-white bg-white overflow-hidden shadow-sm">
             <img
               src={store.logo || "/assets/images/japones.webp"}
@@ -74,12 +68,9 @@ export default function InfoModal({ isOpen, onClose, store }) {
         </div>
       </div>
 
-      {/* --- Conteúdo Principal (Scrollável) --- */}
       <div className="px-6 pb-10 space-y-8 bg-white rounded-t-3xl -mt-4 pt-6">
-        {/* Título da Seção */}
         <h3 className="text-2xl font-bold text-[#C9A227]">Informações</h3>
 
-        {/* Descrição */}
         <section>
           <h4 className="text-lg font-bold text-black mb-2">
             Descrição do Restaurante
@@ -92,7 +83,6 @@ export default function InfoModal({ isOpen, onClose, store }) {
           </p>
         </section>
 
-        {/* Horários */}
         <section>
           <h4 className="text-lg font-bold text-black mb-3">Aberto agora</h4>
           <div className="space-y-3">
@@ -105,13 +95,11 @@ export default function InfoModal({ isOpen, onClose, store }) {
           </div>
         </section>
 
-        {/* Pagamento */}
         <section>
           <h4 className="text-lg font-bold text-black mb-3">
             Formas de pagamento
           </h4>
           <div className="flex gap-3">
-            {/* Ícones de pagamento (Simulados com SVGs ou Imagens) */}
             <div className="w-10 h-6 bg-green-100 rounded border border-green-300 flex items-center justify-center text-[10px] font-bold text-green-800">
               $$$
             </div>

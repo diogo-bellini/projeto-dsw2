@@ -21,7 +21,6 @@ export default function MenuModal({ isOpen, onClose, menuItems }) {
 
   return (
     <div className="fixed inset-0 z-50 bg-[#4C0000] overflow-y-auto md:hidden flex flex-col">
-      {/* Header Fixo */}
       <header className="sticky top-0 bg-[#4C0000] text-white px-6 py-5 flex items-center gap-4 z-30 shadow-md">
         <button onClick={onClose} className="p-1">
           <svg className="w-7 h-7" fill="white" viewBox="0 0 24 24">
@@ -31,7 +30,6 @@ export default function MenuModal({ isOpen, onClose, menuItems }) {
         <h1 className="text-2xl font-bold">Cardápio</h1>
       </header>
 
-      {/* Navegação por Abas (Horizontal Scroll) */}
       <div className="sticky top-[88px] z-20 bg-[#4C0000] border-b border-white/20">
         <div className="flex overflow-x-auto px-4 py-3 gap-4 no-scrollbar">
           {categories.map((cat) => (
@@ -51,13 +49,11 @@ export default function MenuModal({ isOpen, onClose, menuItems }) {
       </div>
 
       <div className="relative flex-1 pb-24 min-h-screen">
-        {/* Background Image */}
         <div
           className="fixed right-0 top-0 w-full h-full bg-cover bg-center opacity-10 pointer-events-none"
           style={{ backgroundImage: "url(/assets/images/cardapio.png)" }}
         />
 
-        {/* Lista de Itens Filtrada */}
         <div className="relative z-10 px-6 pt-6 space-y-6">
           {menuItems.length === 0 && (
             <p className="text-white text-center mt-10">
@@ -67,7 +63,6 @@ export default function MenuModal({ isOpen, onClose, menuItems }) {
 
           {currentItems.length > 0 ? (
             <div className="space-y-4">
-              {/* Título da Seção (Opcional, já que a aba está marcada) */}
               <h2 className="text-xl font-bold text-amber-400 mb-4">
                 {activeCategory}
               </h2>
@@ -94,7 +89,6 @@ export default function MenuModal({ isOpen, onClose, menuItems }) {
         </div>
       </div>
 
-      {/* Footer Navigation */}
       <footer className="fixed bottom-0 left-0 right-0 h-20 border-t border-black bg-white z-20">
         <nav className="flex h-20 items-center justify-evenly">
           <a href="/" className="flex flex-col items-center gap-1">

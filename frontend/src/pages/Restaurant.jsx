@@ -122,10 +122,9 @@ export default function Restaurant() {
       <Header />
 
       <main className="relative flex flex-col items-center px-6 pb-32 md:px-8 md:pb-20 lg:px-12 md:mt-32 lg:mt-40">
-        {/* Background Image (Banner Dinâmico) */}
         <div className="absolute inset-x-0 top-0 mx-auto h-36 w-full md:h-64 md:px-20 lg:px-32 xl:px-44 2xl:px-56">
           <img
-            src={store?.banner || "/assets/images/imagem3.webp"} // Usa o banner do store ou fallback
+            src={store?.banner || "/assets/images/imagem3.webp"}
             alt="Ambiente"
             className="h-full w-full object-cover blur-[1.3px] sm:blur-none md:rounded-lg"
           />
@@ -133,7 +132,6 @@ export default function Restaurant() {
 
         <RestaurantCard store={store} />
 
-        {/* --- Mobile Section (Botões) --- */}
         <section className="mt-10 flex w-full max-w-sm flex-col gap-4 md:hidden">
           <button
             onClick={() => setIsInfoModalOpen(true)}
@@ -176,7 +174,6 @@ export default function Restaurant() {
             </svg>
           </button>
 
-          {/* Mini Mapa Mobile (Só aparece se nenhum modal estiver aberto) */}
           {!isTableMapModalOpen && !isMenuModalOpen && !isInfoModalOpen && (
             <div className="mt-6 flex w-full flex-col z-0">
               <h2 className="mb-2 text-sm font-semibold">Localização</h2>
@@ -192,15 +189,12 @@ export default function Restaurant() {
           </button>
         </section>
 
-        {/* --- Desktop Section --- */}
         <section className="mb-20 mt-10 hidden w-full max-w-7xl items-start justify-center gap-5 md:flex lg:gap-8">
-          {/* Left Column */}
           <div className="flex flex-1 flex-col gap-5 max-w-3xl">
             <TableMap />
             <Menu menuItems={menuItems} />
           </div>
 
-          {/* Right Column */}
           <aside className="flex w-full max-w-xs flex-col gap-5 lg:max-w-sm">
             <ReservationForm storeId={id} />
             <Schedule schedule={store?.schedule} />
@@ -210,7 +204,6 @@ export default function Restaurant() {
 
       <Footer />
 
-      {/* --- Modais --- */}
       <TableMapModal
         isOpen={isTableMapModalOpen}
         onClose={() => setIsTableMapModalOpen(false)}

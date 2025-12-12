@@ -11,7 +11,6 @@ const Login = () => {
 
   const navigate = useNavigate();
 
-  // Redirecionar se já estiver logado
   useEffect(() => {
     if (isAuthenticated()) {
       navigate("/");
@@ -27,7 +26,6 @@ const Login = () => {
     }
 
     try {
-      // Buscar usuário pelo email e senha
       const response = await fetch(
         `http://localhost:3000/users?email=${email}&senha=${senha}`
       );
@@ -36,12 +34,14 @@ const Login = () => {
       if (usuarios.length > 0) {
         const usuarioLogado = usuarios[0];
 
-        // Salvar dados do usuário na sessão
-        localStorage.setItem("usuarioLogado", JSON.stringify({
-          id: usuarioLogado.id,
-          email: usuarioLogado.email,
-          nomeCompleto: usuarioLogado.nomeCompleto,
-        }));
+        localStorage.setItem(
+          "usuarioLogado",
+          JSON.stringify({
+            id: usuarioLogado.id,
+            email: usuarioLogado.email,
+            nomeCompleto: usuarioLogado.nomeCompleto,
+          })
+        );
 
         navigate("/");
       } else {
@@ -49,7 +49,9 @@ const Login = () => {
       }
     } catch (error) {
       console.error("Erro ao fazer login:", error);
-      alert("Erro ao conectar com o servidor. Verifique se o json-server está rodando.");
+      alert(
+        "Erro ao conectar com o servidor. Verifique se o json-server está rodando."
+      );
     }
   };
 
@@ -82,7 +84,6 @@ const Login = () => {
           Esqueci minha senha.
         </a>
 
-        {/* 4. Link correto para a rota de Registro */}
         <Link to="/register" className="text-white hover:underline text-sm">
           Não tem conta? Registre-se aqui.
         </Link>

@@ -98,7 +98,6 @@ export default function ReservationForm({ storeId }) {
         />
       </div>
 
-      {/* --- PESSOAS --- */}
       <label htmlFor="people" className="mb-1 block text-sm font-medium">
         Número de Pessoas
       </label>
