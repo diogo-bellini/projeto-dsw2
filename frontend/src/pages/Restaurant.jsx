@@ -132,10 +132,10 @@ export default function Restaurant() {
       <Header />
 
       <main className="relative flex flex-col items-center px-6 pb-32 md:px-8 md:pb-20 lg:px-12 md:mt-32 lg:mt-40">
-        {/* Background Image */}
+        {/* Background Image (Banner Dinâmico) */}
         <div className="absolute inset-x-0 top-0 mx-auto h-36 w-full md:h-64 md:px-20 lg:px-32 xl:px-44 2xl:px-56">
           <img
-            src="/assets/images/imagem3.webp"
+            src={store?.banner || "/assets/images/imagem3.webp"} // Usa o banner do store ou fallback
             alt="Ambiente"
             className="h-full w-full object-cover blur-[1.3px] sm:blur-none md:rounded-lg"
           />

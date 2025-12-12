@@ -43,9 +43,6 @@ const Login = () => {
           nomeCompleto: usuarioLogado.nomeCompleto,
         }));
 
-        const primeiroNome = usuarioLogado.nomeCompleto.split(" ")[0];
-        alert(`Bem-vindo, ${primeiroNome}! Login efetuado.`);
-
         navigate("/");
       } else {
         alert("E-mail ou senha inválidos. Verifique suas credenciais.");

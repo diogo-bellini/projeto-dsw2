@@ -131,12 +131,8 @@ export default function Header() {
   };
 
   const handleLogout = () => {
-    if (window.confirm("Deseja realmente sair?")) {
-      logout();
-      setUsuario(null);
-      navigate("/");
-      alert("Logout realizado com sucesso!");
-    }
+    logout();
+    window.location.href = "/";
   };
 
   const handleLoginClick = () => {
