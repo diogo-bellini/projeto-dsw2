@@ -1,7 +1,6 @@
 export default function InfoModal({ isOpen, onClose, store }) {
   if (!isOpen || !store) return null;
 
-  // Se não houver horários, evita erro
   const schedule = store.schedule || [];
 
   return (

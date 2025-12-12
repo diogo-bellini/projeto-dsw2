@@ -90,7 +90,6 @@
       document.addEventListener("DOMContentLoaded", () => {
         const registroForm = document.getElementById("registroForm");
 
-        //validar cpf
         function validarCPF(cpf) {
           cpf = cpf.replace(/[^\d]+/g, "");
           if (cpf.length !== 11) {

@@ -4,7 +4,6 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Aqui estão suas cores personalizadas traduzidas para v3
         cinza: "#acacac",
         "amarelo-escuro": "#c9a227",
         "cinza-escuro": "#eeeeee",
