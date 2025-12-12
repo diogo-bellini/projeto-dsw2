@@ -1,6 +1,5 @@
 import { useState } from "react";
 
-// Recebendo storeId para salvar qual restaurante foi reservado
 export default function ReservationForm({ storeId }) {
   const [formData, setFormData] = useState({ date: "", time: "", people: "" });
   const [isSubmitting, setIsSubmitting] = useState(false); // Para feedback visual
@@ -15,13 +14,12 @@ export default function ReservationForm({ storeId }) {
 
     setIsSubmitting(true);
 
-    // Montar o objeto que vai para o banco
     const newReservation = {
-      storeId: Number(storeId), // Converte para número por segurança
+      storeId: Number(storeId),
       date: formData.date,
       time: formData.time,
-      people: Number(formData.people), // Salva como número
-      createdAt: new Date().toISOString(), // Data de criação do registro
+      people: Number(formData.people),
+      createdAt: new Date().toISOString(),
     };
 
     try {
@@ -35,7 +33,6 @@ export default function ReservationForm({ storeId }) {
 
       if (response.ok) {
         alert("Reserva realizada com sucesso!");
-        // Limpar o formulário
         setFormData({ date: "", time: "", people: "" });
       } else {
         alert("Ocorreu um erro ao realizar a reserva.");
@@ -57,7 +54,6 @@ export default function ReservationForm({ storeId }) {
         Faça sua Reserva
       </h2>
 
-      {/* --- DATA --- */}
       <label htmlFor="date" className="mb-1 block text-sm font-medium">
         Data da Reserva
       </label>

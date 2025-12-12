@@ -1,5 +1,4 @@
 export default function RestaurantCard({ store }) {
-  // Função auxiliar para formatar preço (ex: 34.7 -> 34,70)
   const formatPrice = (price) => {
     if (!price) return "--,--";
     return price.toFixed(2).replace(".", ",");

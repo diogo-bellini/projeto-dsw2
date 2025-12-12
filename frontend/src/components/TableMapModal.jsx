@@ -10,13 +10,11 @@ export default function TableMapModal({ isOpen, onClose, storeId }) {
     if (isOpen && storeId) {
       setLoading(true);
 
-      // Buscar dados da loja
       fetch(`http://localhost:3000/stores/${storeId}`)
         .then((res) => res.json())
         .then((data) => setStore(data))
         .catch((err) => console.error("Erro ao carregar loja:", err));
 
-      // Buscar mesas da loja
       fetch(`http://localhost:3000/tables?storeId=${storeId}`)
         .then((res) => res.json())
         .then((data) => {
@@ -34,7 +32,6 @@ export default function TableMapModal({ isOpen, onClose, storeId }) {
 
   return (
     <div className="fixed inset-0 z-50 bg-white overflow-y-auto md:hidden">
-      {/* Header */}
       <header className="sticky top-0 bg-[#4C0000] text-white px-4 py-4 flex items-center gap-4">
         <button onClick={onClose} className="p-1">
           <svg className="w-6 h-6" fill="white" viewBox="0 0 24 24">
@@ -50,7 +47,6 @@ export default function TableMapModal({ isOpen, onClose, storeId }) {
         </div>
       ) : (
         <>
-          {/* Mapa de Mesas */}
           <div className="px-4 py-6">
             <div className="relative w-full bg-gray-100 rounded-lg p-4">
               <img
@@ -59,8 +55,6 @@ export default function TableMapModal({ isOpen, onClose, storeId }) {
                 className="w-full h-auto object-contain"
               />
 
-              {/* Mesas clicáveis - posicionadas sobre a imagem */}
-              {/* Mesa 5 */}
               {tables.find((t) => t.number === 5) && (
                 <button
                   onClick={() =>
@@ -77,7 +71,6 @@ export default function TableMapModal({ isOpen, onClose, storeId }) {
                 </button>
               )}
 
-              {/* Mesa 6 */}
               {tables.find((t) => t.number === 6) && (
                 <button
                   onClick={() =>
@@ -94,7 +87,6 @@ export default function TableMapModal({ isOpen, onClose, storeId }) {
                 </button>
               )}
 
-              {/* Mesa 7 */}
               {tables.find((t) => t.number === 7) && (
                 <button
                   onClick={() =>
@@ -112,7 +104,6 @@ export default function TableMapModal({ isOpen, onClose, storeId }) {
               )}
             </div>
 
-            {/* Descrição da Mesa Selecionada */}
             {selectedTable && (
               <div className="mt-6 bg-white rounded-lg border-2 border-black p-6">
                 <h2 className="text-xl font-bold mb-4">Descrição da mesa</h2>
@@ -146,7 +137,6 @@ export default function TableMapModal({ isOpen, onClose, storeId }) {
         </>
       )}
 
-      {/* Footer Navigation */}
       <footer className="fixed bottom-0 left-0 right-0 h-20 border-t border-black bg-white">
         <nav className="flex h-20 items-center justify-evenly">
           <a href="/" className="flex flex-col items-center gap-1">

@@ -54,7 +54,7 @@ export default function Header() {
     console.error("Erro ao obter geolocalização:", error);
     if (error.code === 1) setLocalizacao("Permissão negada");
     else if (error.code === 2) setLocalizacao("Sinal indisponível");
-    else if (error.code === 3) setLocalizacao("Tempo esgotado"); // Timeout
+    else if (error.code === 3) setLocalizacao("Tempo esgotado");
     else setLocalizacao("Erro ao obter local");
   }
 
@@ -62,10 +62,9 @@ export default function Header() {
     if (navigator.geolocation) {
       setLocalizacao("Obtendo localização...");
 
-      // Adicione estas opções para corrigir o travamento
       const options = {
         enableHighAccuracy: true,
-        timeout: 10000, // Desiste após 10 segundos (evita o loop infinito)
+        timeout: 10000,
         maximumAge: 0,
       };
 
@@ -86,7 +85,6 @@ export default function Header() {
     setUsuario(usuarioLogado);
   }, []);
 
-  // Buscar restaurantes quando o usuário digitar
   useEffect(() => {
     const searchRestaurants = async () => {
       if (searchQuery.trim().length < 2) {
@@ -112,7 +110,6 @@ export default function Header() {
     return () => clearTimeout(timeoutId);
   }, [searchQuery]);
 
-  // Fechar sugestões quando clicar fora
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (searchRef.current && !searchRef.current.contains(event.target)) {
@@ -193,13 +190,15 @@ export default function Header() {
             </div>
           )}
 
-          {showSuggestions && searchQuery.length >= 2 && searchResults.length === 0 && (
-            <div className="absolute top-full mt-2 w-full bg-white rounded-lg shadow-lg border border-gray-200 px-4 py-3 z-50">
-              <p className="text-gray-500 text-sm">
-                Nenhum restaurante encontrado
-              </p>
-            </div>
-          )}
+          {showSuggestions &&
+            searchQuery.length >= 2 &&
+            searchResults.length === 0 && (
+              <div className="absolute top-full mt-2 w-full bg-white rounded-lg shadow-lg border border-gray-200 px-4 py-3 z-50">
+                <p className="text-gray-500 text-sm">
+                  Nenhum restaurante encontrado
+                </p>
+              </div>
+            )}
         </div>
       </div>
 

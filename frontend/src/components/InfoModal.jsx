@@ -3,7 +3,6 @@ import React from "react";
 export default function InfoModal({ isOpen, onClose, store }) {
   if (!isOpen || !store) return null;
 
-  // Se não houver horários, evita erro
   const schedule = store.schedule || [];
 
   return (
@@ -11,7 +10,7 @@ export default function InfoModal({ isOpen, onClose, store }) {
       {/* --- Header com Imagem --- */}
       <div className="relative h-48 md:h-64 w-full">
         <img
-          src="/assets/images/imagem3.webp" // Usando a mesma imagem de fundo da página principal
+          src="/assets/images/imagem3.webp"
           alt="Capa"
           className="w-full h-full object-cover"
         />
