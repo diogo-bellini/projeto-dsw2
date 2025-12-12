@@ -14,22 +14,18 @@ import InfoModal from "../components/InfoModal";
 export default function Restaurant() {
   const { id } = useParams();
 
-  // --- Estados ---
   const [store, setStore] = useState(null);
   const [menuItems, setMenuItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // Estados dos Modais
   const [isTableMapModalOpen, setIsTableMapModalOpen] = useState(false);
   const [isMenuModalOpen, setIsMenuModalOpen] = useState(false);
   const [isInfoModalOpen, setIsInfoModalOpen] = useState(false);
 
-  // Referências do Mapa
   const mapRef = useRef(null);
   const mapInstanceRef = useRef(null);
 
-  // --- 1. Busca de Dados ---
   useEffect(() => {
     if (!id) return;
     setLoading(true);
@@ -54,10 +50,8 @@ export default function Restaurant() {
       });
   }, [id]);
 
-  // --- 2. Correção de Resize (Fecha modais ao ir para Desktop) ---
   useEffect(() => {
     const handleResize = () => {
-      // Se a tela for maior que 768px (md do Tailwind), fecha tudo
       if (window.innerWidth >= 768) {
         setIsInfoModalOpen(false);
         setIsMenuModalOpen(false);
@@ -69,7 +63,6 @@ export default function Restaurant() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // --- 3. Lógica do Mapa Leaflet ---
   useEffect(() => {
     if (
       !mapRef.current ||
@@ -98,7 +91,6 @@ export default function Restaurant() {
     };
   }, [loading, isTableMapModalOpen, isMenuModalOpen, isInfoModalOpen]);
 
-  // Remove o mapa se algum modal abrir (para evitar sobreposição z-index)
   useEffect(() => {
     if (
       (isTableMapModalOpen || isMenuModalOpen || isInfoModalOpen) &&
@@ -108,8 +100,6 @@ export default function Restaurant() {
       mapInstanceRef.current = null;
     }
   }, [isTableMapModalOpen, isMenuModalOpen, isInfoModalOpen]);
-
-  // --- Renderização ---
 
   if (loading) {
     return (

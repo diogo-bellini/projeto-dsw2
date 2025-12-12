@@ -1,5 +1,4 @@
 export default function Schedule({ schedule }) {
-  // Se não vier dados do banco, usa uma lista vazia para não quebrar a tela
   const workingHours = schedule || [];
 
   return (
@@ -9,7 +8,6 @@ export default function Schedule({ schedule }) {
           <h2 className="text-xl font-semibold lg:text-2xl">
             Horário de Funcionamento
           </h2>
-          {/* Lógica simples: Se tiver horários, mostra "Aberto" (poderia ser mais complexa com Date) */}
           <p className="text-xs text-green-600">
             {workingHours.length > 0
               ? "Consulte os horários abaixo"

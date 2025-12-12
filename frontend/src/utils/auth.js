@@ -1,5 +1,3 @@
-// Utilitários de autenticação
-
 export const getUsuarioLogado = () => {
   try {
     const usuario = localStorage.getItem("usuarioLogado");

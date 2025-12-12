@@ -8,7 +8,6 @@ import { isAuthenticated } from "../utils/auth";
 const Register = () => {
   const navigate = useNavigate();
 
-  // Redirecionar se já estiver logado
   useEffect(() => {
     if (isAuthenticated()) {
       navigate("/");
@@ -88,7 +87,6 @@ const Register = () => {
     }
 
     try {
-      // Verificar se email já existe
       const emailResponse = await fetch(
         `http://localhost:3000/users?email=${email}`
       );
@@ -99,10 +97,7 @@ const Register = () => {
         return;
       }
 
-      // Verificar se CPF já existe
-      const cpfResponse = await fetch(
-        `http://localhost:3000/users?cpf=${cpf}`
-      );
+      const cpfResponse = await fetch(`http://localhost:3000/users?cpf=${cpf}`);
       const cpfExistente = await cpfResponse.json();
 
       if (cpfExistente.length > 0) {
@@ -110,7 +105,6 @@ const Register = () => {
         return;
       }
 
-      // Criar novo usuário
       const novoUsuario = {
         nomeCompleto: nome,
         cpf: cpf,
@@ -135,7 +129,9 @@ const Register = () => {
       }
     } catch (error) {
       console.error("Erro ao registrar:", error);
-      alert("Erro ao conectar com o servidor. Verifique se o json-server está rodando.");
+      alert(
+        "Erro ao conectar com o servidor. Verifique se o json-server está rodando."
+      );
     }
   };
 

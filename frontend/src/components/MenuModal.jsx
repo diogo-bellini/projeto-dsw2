@@ -1,25 +1,20 @@
 import { useState, useEffect } from "react";
 
 export default function MenuModal({ isOpen, onClose, menuItems }) {
-  // Estado para controlar qual categoria está ativa
   const [activeCategory, setActiveCategory] = useState("");
 
-  // Sempre que abrir o modal ou mudar os itens, recalcula as categorias
   const categories = [...new Set(menuItems.map((item) => item.category))];
 
-  // Define a primeira categoria como ativa assim que os dados chegarem
   useEffect(() => {
     if (categories.length > 0 && !activeCategory) {
       setActiveCategory(categories[0]);
     } else if (categories.length > 0 && !categories.includes(activeCategory)) {
-      // Se mudou de loja e a categoria antiga não existe na nova, reseta
       setActiveCategory(categories[0]);
     }
   }, [menuItems, categories, activeCategory]);
 
   if (!isOpen) return null;
 
-  // Filtra os itens para mostrar apenas os da aba selecionada
   const currentItems = menuItems.filter(
     (item) => item.category === activeCategory
   );
